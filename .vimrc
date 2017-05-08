@@ -58,12 +58,15 @@ syntax on
 set laststatus=2
 set backspace=indent,eol,start
 set whichwrap+=<,>,h,l
-set textwidth=78
-set colorcolumn=+3
+"set textwidth=78
+"set colorcolumn=+3
+set textwidth=80
+set colorcolumn=+1
 " set cursorline
 set number
 set numberwidth=5
-"set ruler
+set ruler
+"set rulerformat=%-14.(%l,%c%V%)\ %P
 "set cmdheight=2
 
 if has('mouse')
