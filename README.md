@@ -3,6 +3,7 @@ A very simple dotfiles from  someone who is still learning vim and tmux the hard
 
 ## .vimrc
 **Based on Amir Salihefendic's dotfiles**
+
 Plugins: 
 - vim-javascript
 - vim-jsx
@@ -13,6 +14,7 @@ Plugins:
 Theme: solarized
 
 ## .tmux-conf
+
 Functions:
 - remap prefix from 'C-b' to 'C-a'
 - vi mode copy paste
