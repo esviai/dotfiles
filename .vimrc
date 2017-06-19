@@ -64,6 +64,15 @@ Plug 'mattn/emmet-vim'
 " ale (Asynchronous Lint Engine)
 Plug 'w0rp/ale'
 
+" vim-vue
+Plug 'posva/vim-vue'
+
+" onedark.vim
+"Plug 'joshdick/onedark.vim'
+
+" vim-colors-solarized
+"Plug 'altercation/vim-colors-solarized'
+
 " Initialize plugin system
 call plug#end()
 
@@ -81,6 +90,11 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
+" vim-vue
+autocmd FileType vue syntax sync fromstart
+autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -202,19 +216,19 @@ if $COLORTERM == 'gnome-terminal'
 endif
 
 try
-    colorscheme desert
+   colorscheme desert
 catch
 endtry
 
 "set background=dark
-"let g:solarized_termcolors=256
+"let g:solarized_termcolors=16
 "let g:solarized_termtrans=1
 
 " Set extra options when running in GUI mode
 if has("gui_running")
     set guioptions-=T
     set guioptions-=e
-    set t_Co=256
+    "set t_Co=256
     set guitablabel=%M\ %t
 endif
 
@@ -247,8 +261,8 @@ set expandtab
 set smarttab
 
 " 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
+set shiftwidth=2
+set tabstop=2
 
 " Linebreak on 500 characters
 set lbr
@@ -273,7 +287,6 @@ autocmd FileType html setlocal shiftwidth=2 tabstop=2
 " Super useful! From an idea by Michael Naumann
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
