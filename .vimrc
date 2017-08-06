@@ -49,14 +49,23 @@
 " Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
 
-" vim-javascript (Vastly improved Javascript indentation and syntax support in Vim.)
-Plug 'pangloss/vim-javascript'
+" vim-polyglot (A collection of language packs for Vim.)
+Plug 'sheerun/vim-polyglot'
 
-" vim-jsx (React JSX syntax highlighting and indenting for vim.)
-Plug 'mxw/vim-jsx'
+" vim-fugitive (The best Git wrapper of all time.)
+Plug 'tpope/vim-fugitive'
 
-" vim-json (Syntax highlighting for JSON in Vim)
-Plug 'leshill/vim-json'
+" vim-airline (Lean & mean status/tabline for vim that's light as air.)
+Plug 'bling/vim-airline'
+
+" vim airline themes (The official theme repository for vim-airline.)
+Plug 'vim-airline/vim-airline-themes'
+
+" tern_for_vim (This is a Vim plugin that provides Tern-based JavaScript editing support.)
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+
+" YouCompleteMe (A code-completion engine for Vim.)
+Plug 'Valloric/YouCompleteMe'
 
 " emmet-vim
 Plug 'mattn/emmet-vim'
@@ -64,8 +73,26 @@ Plug 'mattn/emmet-vim'
 " ale (Asynchronous Lint Engine)
 Plug 'w0rp/ale'
 
-" vim-vue
-Plug 'posva/vim-vue'
+" nerdtree (A tree explorer plugin for vim.)
+Plug 'scrooloose/nerdtree'
+
+" nerdtree-git-plugin (A plugin of NERDTree showing git status flags. Works with the LATEST version of NERDTree.)
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
+"" nova-vim
+"Plug 'trevordmiller/nova-vim'
+
+"" vim-javascript (Vastly improved Javascript indentation and syntax support in Vim.)
+"Plug 'pangloss/vim-javascript'
+"
+"" vim-jsx (React JSX syntax highlighting and indenting for vim.)
+"Plug 'mxw/vim-jsx'
+"
+"" vim-json (Syntax highlighting for JSON in Vim)
+"Plug 'leshill/vim-json'
+
+"" vim-vue
+"Plug 'posva/vim-vue'
 
 " onedark.vim
 "Plug 'joshdick/onedark.vim'
@@ -76,11 +103,11 @@ Plug 'posva/vim-vue'
 " Initialize plugin system
 call plug#end()
 
-" vim-javascript
-let g:javascript_plugin_flow = 1
-
-" vim-jsx
-let g:jsx_ext_required = 0
+"" vim-javascript
+"let g:javascript_plugin_flow = 1
+"
+"" vim-jsx
+"let g:jsx_ext_required = 0
 
 " ale
 let g:ale_linters = {'jsx': ['eslint','stylelint']}
@@ -91,9 +118,29 @@ let g:ale_lint_on_enter = 0
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
-" vim-vue
-autocmd FileType vue syntax sync fromstart
-autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
+" YoucompleteMe
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
+
+"" vim-vue
+"autocmd FileType vue syntax sync fromstart
+"autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
+
+"" nova-vim
+"colorscheme nova
+
+"" vim-airline
+set laststatus=2
+let g:airline_theme= 'luna'
+let g:airline#extensions#ale#enabled = 1
+"let g:airline_powerline_fonts=1
+"let g:airline_right_alt_sep = ''
+"let g:airline_right_sep = ''
+"let g:airline_left_alt_sep= ''
+"let g:airline_left_sep = ''
+
+" nerdtree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -118,7 +165,7 @@ nmap <leader>w :w!<cr>
 
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
+" command W w !sudo tee % > /dev/null
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -261,8 +308,8 @@ set expandtab
 set smarttab
 
 " 1 tab == 4 spaces
-set shiftwidth=2
-set tabstop=2
+set shiftwidth=4
+set tabstop=4
 
 " Linebreak on 500 characters
 set lbr
@@ -273,7 +320,7 @@ set si "Smart indent
 set wrap "Wrap lines
 
 " Two spaces tabs for javascript files
-autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+autocmd FileType javascript setlocal shiftwidth=4 tabstop=4
 autocmd FileType css setlocal shiftwidth=2 tabstop=2
 autocmd FileType scss setlocal shiftwidth=2 tabstop=2
 autocmd FileType less setlocal shiftwidth=2 tabstop=2
