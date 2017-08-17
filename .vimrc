@@ -79,6 +79,12 @@ Plug 'scrooloose/nerdtree'
 " nerdtree-git-plugin (A plugin of NERDTree showing git status flags. Works with the LATEST version of NERDTree.)
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
+" ctrlp.vim (Full path fuzzy file, buffer, mru, tag, ... finder for Vim.)
+Plug 'ctrlpvim/ctrlp.vim'
+
+" vim-surround (Surround.vim is all about "surroundings": parentheses, brackets, quotes, XML tags, and more.)
+Plug 'tpope/vim-surround'
+
 "" nova-vim
 "Plug 'trevordmiller/nova-vim'
 
@@ -133,6 +139,7 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 set laststatus=2
 let g:airline_theme= 'luna'
 let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
 "let g:airline_powerline_fonts=1
 "let g:airline_right_alt_sep = ''
 "let g:airline_right_sep = ''
@@ -140,7 +147,10 @@ let g:airline#extensions#ale#enabled = 1
 "let g:airline_left_sep = ''
 
 " nerdtree
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+let NERDTreeAutoDeleteBuffer = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -307,9 +317,9 @@ set expandtab
 " Be smart when using tabs ;)
 set smarttab
 
-" 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
+" 1 tab == 2 spaces
+set shiftwidth=2
+set tabstop=2
 
 " Linebreak on 500 characters
 set lbr
@@ -320,7 +330,7 @@ set si "Smart indent
 set wrap "Wrap lines
 
 " Two spaces tabs for javascript files
-autocmd FileType javascript setlocal shiftwidth=4 tabstop=4
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 autocmd FileType css setlocal shiftwidth=2 tabstop=2
 autocmd FileType scss setlocal shiftwidth=2 tabstop=2
 autocmd FileType less setlocal shiftwidth=2 tabstop=2

@@ -1,13 +1,10 @@
 {
   "ecmaVersion": 6,
-  "libs": ["browser"],
-  "loadEagerly": [
-    "app/**/*.js"
+  "libs": [
+    "browser",
+    "ecmascript"
   ],
   "plugins": {
-    "doc_comment": {
-      "fullDocs": true
-    },
     "es_modules": {},
     "modules": {},
     "node": {}
