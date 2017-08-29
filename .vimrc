@@ -117,7 +117,7 @@ call plug#end()
 
 " ale
 let g:ale_linters = {'jsx': ['eslint','stylelint']}
-let g:ale_linters = {'javascript': ['eslint']}
+let g:ale_linters = {'javascript': ['eslint', 'jshint']}
 let g:ale_linter_aliases = {'jsx': 'css'}
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
@@ -137,7 +137,8 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 
 "" vim-airline
 set laststatus=2
-let g:airline_theme= 'luna'
+"let g:airline_theme= 'luna'
+let g:airline_theme= 'minimalist'
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 "let g:airline_powerline_fonts=1
@@ -266,16 +267,17 @@ set foldcolumn=1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 syntax enable 
+colorscheme monokai
 
 " Enable 256 colors palette in Gnome Terminal
 if $COLORTERM == 'gnome-terminal'
     set t_Co=256
 endif
 
-try
-   colorscheme desert
-catch
-endtry
+"try
+"   colorscheme desert
+"catch
+"endtry
 
 "set background=dark
 "let g:solarized_termcolors=16
@@ -332,8 +334,6 @@ set wrap "Wrap lines
 " Two spaces tabs for javascript files
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 autocmd FileType css setlocal shiftwidth=2 tabstop=2
-autocmd FileType scss setlocal shiftwidth=2 tabstop=2
-autocmd FileType less setlocal shiftwidth=2 tabstop=2
 autocmd FileType ejs setlocal shiftwidth=2 tabstop=2
 autocmd FileType html setlocal shiftwidth=2 tabstop=2
 

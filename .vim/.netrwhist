@@ -1,0 +1,5 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/home/shabrina'
+let g:netrw_dirhist_2='/home/shabrina/Documents/Xendit/xendit-disbursement/services/disbursement_service'
+let g:netrw_dirhist_3='/home/shabrina/Documents/Xendit/xendit-disbursement/controllers'
