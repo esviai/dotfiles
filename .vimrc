@@ -121,6 +121,7 @@ let g:ale_linters = {'javascript': ['eslint', 'jshint']}
 let g:ale_linter_aliases = {'jsx': 'css'}
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
+let g:ale_open_list = 1
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
@@ -141,11 +142,11 @@ set laststatus=2
 let g:airline_theme= 'minimalist'
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
-"let g:airline_powerline_fonts=1
-"let g:airline_right_alt_sep = ''
-"let g:airline_right_sep = ''
-"let g:airline_left_alt_sep= ''
-"let g:airline_left_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_left_alt_sep= ''
+let g:airline_left_sep = ''
+let g:airline_powerline_fonts=1
 
 " nerdtree
 autocmd StdinReadPre * let s:std_in=1
@@ -174,7 +175,7 @@ let g:mapleader = ","
 " Fast saving
 nmap <leader>w :w!<cr>
 
-" :W sudo saves the file 
+" :W sudo saves the file
 " (useful for handling the permission-denied error)
 " command W w !sudo tee % > /dev/null
 
@@ -191,7 +192,7 @@ endif
 set so=7
 
 " Avoid garbled characters in Chinese language windows OS
-let $LANG='en' 
+let $LANG='en'
 set langmenu=en
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
@@ -225,7 +226,7 @@ set whichwrap+=<,>,h,l
 " Ignore case when searching
 set ignorecase
 
-" When searching try to be smart about cases 
+" When searching try to be smart about cases
 set smartcase
 
 " Highlight search results
@@ -267,11 +268,21 @@ set foldcolumn=1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 syntax enable 
-colorscheme monokai
+colorscheme molokai
+let g:molokai_original = 1
 
 " Enable 256 colors palette in Gnome Terminal
 if $COLORTERM == 'gnome-terminal'
     set t_Co=256
+endif
+
+" set term=screen-256color
+
+if &term =~ '256color'
+  " disable Background Color Erase (BCE) so that color schemes
+  " render properly when inside 256-color tmux and GNU screen.
+  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
+  set t_ut=
 endif
 
 "try
@@ -285,10 +296,11 @@ endif
 
 " Set extra options when running in GUI mode
 if has("gui_running")
-    set guioptions-=T
-    set guioptions-=e
+    "set guioptions-=T
+    "set guioptions-=e
     "set t_Co=256
-    set guitablabel=%M\ %t
+    "set guitablabel=%M\ %t
+    set term = xterm
 endif
 
 " Set utf8 as standard encoding and en_US as the standard language

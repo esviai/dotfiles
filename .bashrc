@@ -57,7 +57,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
+    #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
     PS1='\[\e[0;38;5;166m\]@\H\[\e[0m\]:\W$ '
 else
     #PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
@@ -119,11 +119,11 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export ANDROID_HOME=$HOME/Android/Sdk
-export PATH=$PATH:$ANDROID_HOME/tools
-export PATH=$PATH:$ANDROID_HOME/platform-tools
+powerline-daemon -q
+POWERLINE_BASH_CONTINUATION=1
+POWERLINE_BASH_SELECT=1
+if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
+  source /usr/share/powerline/bindings/bash/powerline.sh
+fi
 
-xmodmap -e "keycode 94 = Delete NoSymbol Delete"
-function mkdcd () {
-    mkdir "$1" && cd "$1"
-}
+xmodmap ~/.Xmodmap

@@ -1,0 +1,4 @@
+!
+! Change the key on the left of Z to del
+!
+keycode 94 = Delete NoSymbol Delete
