@@ -1,5 +1,5 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Maintainer: 
+" Inspired by: 
 "       Amir Salihefendic
 "       http://amix.dk - amix@amix.dk
 "
@@ -7,26 +7,8 @@
 "       Shabrina V. Inmas
 "       http://esviai.com
 "
-" Version: 
-"       6.0 - 01/04/17 14:24:34 
-"
-" Blog_post: 
-"       http://amix.dk/blog/post/19691#The-ultimate-Vim-configuration-on-Github
-"
-" Awesome_version:
-"       Get this config, nice color schemes and lots of plugins!
-"
-"       Install the awesome version from:
-"
-"           https://github.com/amix/vimrc
-"
-" Syntax_highlighted:
-"       http://amix.dk/vim/vimrc.html
-"
-" Raw_version: 
-"       http://amix.dk/vim/vimrc.txt
-"
 " Sections:
+"    -> Vim Plug
 "    -> General
 "    -> VIM user interface
 "    -> Colors and Fonts
@@ -34,7 +16,6 @@
 "    -> Text, tab and indent related
 "    -> Visual mode related
 "    -> Moving around, tabs and buffers
-"    -> Status line
 "    -> Editing mappings
 "    -> vimgrep searching and cope displaying
 "    -> Spell checking
@@ -43,9 +24,18 @@
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+set nocompatible
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => svi - Vim Plug
+" => Vim Plug
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Install Vim Plug if it doesn't exists
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 " Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
 
@@ -79,67 +69,58 @@ Plug 'scrooloose/nerdtree'
 " nerdtree-git-plugin (A plugin of NERDTree showing git status flags. Works with the LATEST version of NERDTree.)
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
-" ctrlp.vim (Full path fuzzy file, buffer, mru, tag, ... finder for Vim.)
-Plug 'ctrlpvim/ctrlp.vim'
-
-" vim-surround (Surround.vim is all about "surroundings": parentheses, brackets, quotes, XML tags, and more.)
+" vim-surround (Surround.vim is all about surroundings: parentheses, brackets, quotes, XML tags, and more.)
 Plug 'tpope/vim-surround'
 
-"" nova-vim
-"Plug 'trevordmiller/nova-vim'
+" junegunn/fzf.vim (Things you can do with fzf and Vim.)
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
-"" vim-javascript (Vastly improved Javascript indentation and syntax support in Vim.)
-"Plug 'pangloss/vim-javascript'
-"
-"" vim-jsx (React JSX syntax highlighting and indenting for vim.)
-"Plug 'mxw/vim-jsx'
-"
-"" vim-json (Syntax highlighting for JSON in Vim)
-"Plug 'leshill/vim-json'
+" jiangmiao/auto-pairs (Insert or delete brackets, parens, quotes in pair.)
+Plug 'jiangmiao/auto-pairs'
 
-"" vim-vue
-"Plug 'posva/vim-vue'
+" Yggdroot/indentLine (Displaying thin vertical lines at each indentation level for code indented with spaces.)
+Plug 'Yggdroot/indentLine'
 
-" onedark.vim
-"Plug 'joshdick/onedark.vim'
+" jbgutierrez/vim-better-comments (Easily highlight human-friendly comments in your code!)
+" Plug 'jbgutierrez/vim-better-comments'
 
-" vim-colors-solarized
-"Plug 'altercation/vim-colors-solarized'
+" Wakatime (Vim plugin for automatic time tracking and metrics generated from your programming activity.)
+Plug 'wakatime/vim-wakatime'
+
+" Themes
+Plug 'kristijanhusak/vim-hybrid-material'
+Plug 'whatyouhide/vim-gotham'
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
+Plug 'connorholyday/vim-snazzy'
+Plug 'junegunn/seoul256.vim'
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'trusktr/seti.vim'
 
 " Initialize plugin system
 call plug#end()
 
-"" vim-javascript
-"let g:javascript_plugin_flow = 1
-"
-"" vim-jsx
-"let g:jsx_ext_required = 0
-
 " ale
+let g:ale_sign_warning = '▲'
+let g:ale_sign_error = '✗'
 let g:ale_linters = {'jsx': ['eslint','stylelint']}
 let g:ale_linters = {'javascript': ['eslint', 'jshint']}
 let g:ale_linter_aliases = {'jsx': 'css'}
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 let g:ale_open_list = 1
+"let g:ale_javascript_eslint_use_global = 1
+let g:ale_fixers = {'javascript': ['prettier', 'eslint']}
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " YoucompleteMe
-let g:ycm_autoclose_preview_window_after_insertion = 1
+" let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
-
-"" vim-vue
-"autocmd FileType vue syntax sync fromstart
-"autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
-
-"" nova-vim
-"colorscheme nova
 
 "" vim-airline
 set laststatus=2
-"let g:airline_theme= 'luna'
-let g:airline_theme= 'minimalist'
+let g:airline_theme= 'hybrid'
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_right_alt_sep = ''
@@ -153,6 +134,10 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let NERDTreeAutoDeleteBuffer = 1
+
+" indentLine
+let g:indentLine_char = '┆'
+" let g:indentLine_setColors = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -177,13 +162,32 @@ nmap <leader>w :w!<cr>
 
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
-" command W w !sudo tee % > /dev/null
+command W w !sudo tee % > /dev/null
 
+" These are things that I mistype and want ignored.
+nmap Q  <silent>
+nmap q: <silent>
+nmap K  <silent>
+
+" fzf.vim
+nmap ; :Buffers<cr>
+nmap <Leader>r :History<cr>
+nmap <Leader>f :Files<cr>
+nmap <Leader>F :GFiles<cr>
+nmap <Leader>a :Ag<cr>
+nmap <Leader>li :Lines<cr>
+nmap <Leader>lo :BLines<cr>
+
+" ale
+nmap <Leader>af :ALEFix<cr>
+
+" nerdtree
+nmap <Leader>nt :NERDTree<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" svi - Mouse
+" Mouse
 if has('mouse')
     set mouse=a
 endif
@@ -191,17 +195,14 @@ endif
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 
-" Avoid garbled characters in Chinese language windows OS
-let $LANG='en'
-set langmenu=en
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
-
 " Turn on the WiLd menu
 set wildmenu
 
+" List all options and complete
+set wildmode=list:longest,full
+
 " Ignore compiled files
-set wildignore=*.o,*~,*.pyc
+set wildignore=*.o,*~,*.pyc,.git,node_modules
 if has("win16") || has("win32")
     set wildignore+=.git\*,.hg\*,.svn\*
 else
@@ -258,7 +259,6 @@ if has("gui_macvim")
     autocmd GUIEnter * set vb t_vb=
 endif
 
-
 " Add a bit extra margin to the left
 set foldcolumn=1
 
@@ -267,47 +267,65 @@ set foldcolumn=1
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
-syntax enable 
-colorscheme molokai
-let g:molokai_original = 1
-
-" Enable 256 colors palette in Gnome Terminal
-if $COLORTERM == 'gnome-terminal'
-    set t_Co=256
-endif
-
-" set term=screen-256color
-
-if &term =~ '256color'
-  " disable Background Color Erase (BCE) so that color schemes
-  " render properly when inside 256-color tmux and GNU screen.
-  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
-  set t_ut=
-endif
-
-"try
-"   colorscheme desert
-"catch
-"endtry
-
-"set background=dark
-"let g:solarized_termcolors=16
-"let g:solarized_termtrans=1
-
-" Set extra options when running in GUI mode
-if has("gui_running")
-    "set guioptions-=T
-    "set guioptions-=e
-    "set t_Co=256
-    "set guitablabel=%M\ %t
-    set term = xterm
-endif
+syntax on
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
+
+" set Vim-specific sequences for RGB colors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+" Theme
+set background=dark
+" colorscheme molokai
+" let g:rehash256 = 1
+" let g:molokai_original = 1
+colorscheme hybrid_reverse
+let g:enable_bold_font = 1
+let g:enable_italic_font = 1
+" colorscheme gotham
+" colorscheme onehalfdark
+" colorscheme seoul
+" let g:seoul256_background = 233
+" let g:seoul256_light_background = 256
+
+" Set extra options when running in GUI mode
+" if has("gui_running")
+"     set term = xterm
+" endif
+" 
+" if (has("termguicolors"))
+"   set termguicolors
+" endif
+
+" Enable 256 colors palette in Gnome Terminal
+" Disable Background Color Erase (BCE) so that color schemes
+" render properly when inside 256-color tmux and GNU screen.
+" see also http://snk.tuxfamily.org/log/vim-256color-bce.html
+if !has('gui_running')
+  " let g:solarized_termcolors=256
+  if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
+    set t_Co=256
+  elseif has("terminfo")
+    colorscheme default
+    set t_Co=8
+    set t_Sf=[3%p1%dm
+    set t_Sb=[4%p1%dm
+  else
+    colorscheme default
+    set t_Co=8
+    set t_Sf=[3%dm
+    set t_Sb=[4%dm
+  endif
+  " Disable Background Color Erase when within tmux - https://stackoverflow.com/q/6427650/102704
+  if &term =~ '256color'
+    set t_ut=
+  endif
+endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -322,7 +340,7 @@ set noswapfile
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" svi - Stop auto commenting line
+" Stop auto commenting line
 au FileType * set fo-=c fo-=r fo-=o
 
 " Use spaces instead of tabs
@@ -351,15 +369,23 @@ autocmd FileType html setlocal shiftwidth=2 tabstop=2
 
 """"""""""""""""""""""""""""""
 " => Visual mode related
-""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Visual mode pressing * or # searches for the current selection
 " Super useful! From an idea by Michael Naumann
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Natural splitting
+set splitbelow
+set splitright
+
+" Return to the last edited file
+nmap <C-e> :e#<CR>
+
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
 map <space> /
 map <c-space> ?
@@ -379,6 +405,7 @@ map <leader>bd :Bclose<cr>:tabclose<cr>gT
 " Close all the buffers
 map <leader>ba :bufdo bd<cr>
 
+" Move between buffers
 map <leader>l :bnext<cr>
 map <leader>h :bprevious<cr>
 
@@ -393,7 +420,6 @@ map <leader>t<leader> :tabnext
 let g:lasttab = 1
 nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
-
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
@@ -411,16 +437,6 @@ endtry
 
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
-
-""""""""""""""""""""""""""""""
-" => Status line
-""""""""""""""""""""""""""""""
-" Always show the status line
-set laststatus=2
-
-" Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -457,19 +473,6 @@ endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Spell checking
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
-
-" Shortcuts using <leader>
-map <leader>sn ]s
-map <leader>sp [s
-map <leader>sa zg
-map <leader>s? z=
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remove the Windows ^M - when the encodings gets messed up
@@ -477,9 +480,6 @@ noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Quickly open a buffer for scribble
 map <leader>q :e ~/buffer<cr>
-
-" Quickly open a markdown buffer for scribble
-map <leader>x :e ~/buffer.md<cr>
 
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
@@ -516,3 +516,8 @@ function! <SID>BufcloseCloseIt()
         execute("bdelete! ".l:currentBufNum)
     endif
 endfunction
+
+" Load specifics config to this host
+if filereadable(expand("~/.vimlocal"))
+  source ~/.vimlocal
+endif
