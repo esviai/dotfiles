@@ -308,7 +308,7 @@ let g:enable_italic_font = 1
 " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
 if !has('gui_running')
   " let g:solarized_termcolors=256
-  if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
+  if $TERM == "xterm-256color" || $TERM == "screen-256color" || $TERM == "tmux" || $COLORTERM == "gnome-terminal"
     set t_Co=256
   elseif has("terminfo")
     colorscheme default
@@ -326,6 +326,10 @@ if !has('gui_running')
     set t_ut=
   endif
 endif
+
+highlight Comment cterm=italic
+highlight htmlArg cterm=italic
+highlight Type cterm=italic
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -366,6 +370,7 @@ autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 autocmd FileType css setlocal shiftwidth=2 tabstop=2
 autocmd FileType ejs setlocal shiftwidth=2 tabstop=2
 autocmd FileType html setlocal shiftwidth=2 tabstop=2
+
 
 """"""""""""""""""""""""""""""
 " => Visual mode related
