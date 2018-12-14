@@ -20,3 +20,6 @@ Functions:
 - vi mode copy paste
 
 Theme: solarized
+
+To make italized and working home-end key:
+https://medium.com/@dubistkomisch/how-to-actually-get-italics-and-true-colour-to-work-in-iterm-tmux-vim-9ebe55ebc2be
