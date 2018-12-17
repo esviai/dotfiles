@@ -5,10 +5,6 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
-# Change some mapping on keyboard
-# xmodmap ~/.Xmodmap
-# sleep 3 && xmodmap ~/.Xmodmap &
-
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
@@ -16,29 +12,29 @@ fi
 
 # Customize to your needs...
 
-# Same color for dircolors and zsh tab completion
-eval $(dircolors -b $HOME/.dircolors)
+# Comment out this section if module node is activated
+# This loads nvm
+ export NVM_DIR="$HOME/.nvm"
+ [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# This loads nvm bash_completion
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# fzf + ag configuration
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# aws
+export PATH=~/.local/bin:$PATH
 
-SPACESHIP_PROMPT_ORDER=(
-  user          # Username section
-  dir           # Current directory section
-  host          # Hostname section
-  git           # Git section (git_branch + git_status)
-  line_sep      # Line break
-  jobs          # Background jobs indicator
-  exit_code     # Exit code section
-  char          # Prompt character
-)
+# Yarn
+export PATH=~/.yarn/bin:$PATH
 
+# Aliases
+alias nst="npm start"
+alias nrw="npm run watch"
+
+# Functions
 function mkdcd {
   [[ -n "$1" ]] && mkdir -p "$1" && builtin cd "$1"
 }

@@ -86,7 +86,7 @@ Plug 'Yggdroot/indentLine'
 " Plug 'jbgutierrez/vim-better-comments'
 
 " Wakatime (Vim plugin for automatic time tracking and metrics generated from your programming activity.)
-Plug 'wakatime/vim-wakatime'
+" Plug 'wakatime/vim-wakatime'
 
 " Themes
 Plug 'kristijanhusak/vim-hybrid-material'
@@ -331,7 +331,6 @@ highlight Comment cterm=italic
 highlight htmlArg cterm=italic
 highlight Type cterm=italic
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -371,6 +370,7 @@ autocmd FileType css setlocal shiftwidth=2 tabstop=2
 autocmd FileType ejs setlocal shiftwidth=2 tabstop=2
 autocmd FileType html setlocal shiftwidth=2 tabstop=2
 
+au BufRead,BufNewFile,BufEnter /home/dev/Documents/Codes/Xendit/* setlocal ts=4 sw=4
 
 """"""""""""""""""""""""""""""
 " => Visual mode related
