@@ -30,6 +30,13 @@ export PATH=~/.local/bin:$PATH
 # Yarn
 export PATH=~/.yarn/bin:$PATH
 
+# Android
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
 # Aliases
 alias nst="npm start"
 alias nrw="npm run watch"
