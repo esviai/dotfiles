@@ -82,6 +82,12 @@ Plug 'jiangmiao/auto-pairs'
 " Yggdroot/indentLine (Displaying thin vertical lines at each indentation level for code indented with spaces.)
 Plug 'Yggdroot/indentLine'
 
+" fatih/vim-go (Go development plugin for Vim)
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+"Vim plugin for intensely orgasmic commenting
+Plug 'scrooloose/nerdcommenter'
+
 " jbgutierrez/vim-better-comments (Easily highlight human-friendly comments in your code!)
 " Plug 'jbgutierrez/vim-better-comments'
 
@@ -96,6 +102,7 @@ Plug 'connorholyday/vim-snazzy'
 Plug 'junegunn/seoul256.vim'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'trusktr/seti.vim'
+Plug 'haishanh/night-owl.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -152,8 +159,7 @@ filetype indent on
 " Set to auto read when a file is changed from the outside
 set autoread
 
-" With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
+" Change leader to ,
 let mapleader = ","
 let g:mapleader = ","
 
@@ -167,7 +173,7 @@ command W w !sudo tee % > /dev/null
 " These are things that I mistype and want ignored.
 nmap Q  <silent>
 nmap q: <silent>
-nmap K  <silent>
+" nmap K  <silent>
 
 " fzf.vim
 nmap ; :Buffers<cr>
@@ -177,6 +183,14 @@ nmap <Leader>F :GFiles<cr>
 nmap <Leader>a :Ag<cr>
 nmap <Leader>li :Lines<cr>
 nmap <Leader>lo :BLines<cr>
+
+" Use ag over grep
+if executable('ag')
+  set grepprg=ag\ --nogroup\ --nocolor
+endif
+" https://robots.thoughtbot.com/faster-grepping-in-vim
+" bind K to grep word under cursor
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 " ale
 nmap <Leader>af :ALEFix<cr>
@@ -193,7 +207,7 @@ if has('mouse')
 endif
 
 " Set 7 lines to the cursor - when moving vertically using j/k
-set so=7
+" set so=7
 
 " Turn on the WiLd menu
 set wildmenu
@@ -232,6 +246,8 @@ set smartcase
 
 " Highlight search results
 " set hlsearch
+" map F3 to toggle search highlighting
+nnoremap <F3> :set hlsearch!<CR>
 
 " Makes search act like search in modern browsers
 set incsearch 
@@ -262,7 +278,6 @@ endif
 " Add a bit extra margin to the left
 set foldcolumn=1
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -284,23 +299,20 @@ set background=dark
 " colorscheme molokai
 " let g:rehash256 = 1
 " let g:molokai_original = 1
-colorscheme hybrid_reverse
+" colorscheme hybrid_reverse
+" colorscheme dracula
+colorscheme night-owl
 let g:enable_bold_font = 1
 let g:enable_italic_font = 1
-" colorscheme gotham
-" colorscheme onehalfdark
-" colorscheme seoul
-" let g:seoul256_background = 233
-" let g:seoul256_light_background = 256
 
 " Set extra options when running in GUI mode
 " if has("gui_running")
 "     set term = xterm
 " endif
 " 
-" if (has("termguicolors"))
-"   set termguicolors
-" endif
+if (has("termguicolors"))
+  set termguicolors
+endif
 
 " Enable 256 colors palette in Gnome Terminal
 " Disable Background Color Erase (BCE) so that color schemes
