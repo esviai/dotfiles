@@ -382,7 +382,6 @@ autocmd FileType css setlocal shiftwidth=2 tabstop=2
 autocmd FileType ejs setlocal shiftwidth=2 tabstop=2
 autocmd FileType html setlocal shiftwidth=2 tabstop=2
 
-au BufRead,BufNewFile,BufEnter /home/dev/Documents/Codes/Xendit/* setlocal ts=4 sw=4
 
 """"""""""""""""""""""""""""""
 " => Visual mode related
