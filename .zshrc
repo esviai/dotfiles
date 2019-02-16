@@ -39,10 +39,17 @@ export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 # export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # Aliases
+# To fix breaking ssh because of custom TERM
+alias ssh='TERM=xterm-256color ssh'
+
 alias nst="npm start"
 alias nrw="npm run watch"
 
 # Functions
 function mkdcd {
   [[ -n "$1" ]] && mkdir -p "$1" && builtin cd "$1"
+}
+
+function pomona {
+  cd /home/dev/Documents/Codes/Pomona && tmux
 }

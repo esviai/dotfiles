@@ -117,3 +117,6 @@ if ! shopt -oq posix; then
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# To fix breaking ssh because of custom TERM
+alias ssh='TERM=xterm-256color ssh'
