@@ -49,7 +49,3 @@ alias nrw="npm run watch"
 function mkdcd {
   [[ -n "$1" ]] && mkdir -p "$1" && builtin cd "$1"
 }
-
-function pomona {
-  cd /home/dev/Documents/Codes/Pomona && tmux
-}
