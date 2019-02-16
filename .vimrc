@@ -110,14 +110,14 @@ call plug#end()
 " ale
 let g:ale_sign_warning = '▲'
 let g:ale_sign_error = '✗'
-let g:ale_linters = {'jsx': ['eslint','stylelint']}
-let g:ale_linters = {'javascript': ['eslint', 'jshint']}
-let g:ale_linter_aliases = {'jsx': 'css'}
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_enter = 0
-let g:ale_open_list = 1
-"let g:ale_javascript_eslint_use_global = 1
+let g:ale_linters = {'javascript': ['eslint', 'jshint'], 'jsx': ['eslint','stylelint']}
+let g:ale_linter_aliases = {'jsx': ['css', 'javascript']}
 let g:ale_fixers = {'javascript': ['prettier', 'eslint']}
+"let g:ale_lint_on_text_changed = 'never'
+"let g:ale_lint_on_enter = 0
+"let g:ale_open_list = 1
+"let g:ale_javascript_eslint_use_global = 1
+let g:ale_list_window_size = 5
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
@@ -347,8 +347,7 @@ endif
 " render properly when inside 256-color tmux and GNU screen.
 " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
 if !has('gui_running')
-  " let g:solarized_termcolors=256
-  if $TERM == "xterm-256color" || $TERM == "screen-256color" || $TERM == "tmux" || $COLORTERM == "gnome-terminal"
+  if $TERM == "xterm-256color" || $TERM == "screen-256color" || $TERM == "tmux-256color" || $COLORTERM == "gnome-terminal"
     set t_Co=256
   elseif has("terminfo")
     colorscheme default
@@ -442,10 +441,11 @@ map <c-space> ?
 map <silent> <leader><cr> :noh<cr>
 
 " Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+" Disabling this since <C-j> and <C-k> has been mapped to ale
+"map <C-j> <C-W>j
+"map <C-k> <C-W>k
+"map <C-h> <C-W>h
+"map <C-l> <C-W>l
 
 " Close the current buffer
 map <leader>bd :Bclose<cr>:tabclose<cr>gT
