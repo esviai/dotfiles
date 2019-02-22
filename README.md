@@ -20,3 +20,7 @@ tic -x tmux-256color.terminfo
 
 ## Node version manager
 Currently using [n](https://github.com/tj/n)
+
+## Additional stuff to do
+- Enable native notifications in Chrome: chrome://flags/#enable-native-notifications
+- Add xmodmap.sh to startup application (if remap keys is needed)
