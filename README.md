@@ -1,7 +1,12 @@
 # dotfiles
 A very simple dotfiles from  someone who is still learning vim and tmux the hard way.
 
+## shell
+zsh with zprezto
+I prefer using Ag with fzf, thus installation of [Ag](https://github.com/ggreer/the_silver_searcher) is required.
+
 ## .vimrc
+vim v8.1
 Theme: night owl
 
 Plugins: 
@@ -28,11 +33,11 @@ Notes:
 If you'd like to use YouCompleteMe with different language support, you may make adjustment on the post-hook line.
 For instance if you need java and rust support instead of js and go, then you may change the line to:
 ```
-Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --ts-completer --go-completer'  }
-``````
+Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --rust-completer --java-completer'  }
 ```
 
 ## .tmux-conf
+tmux v2.8
 Functions:
 - remap prefix from 'C-b' to 'C-a'
 - vi mode copy paste
