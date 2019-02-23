@@ -121,5 +121,9 @@ fi
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
+# Aliases
 # To fix breaking ssh because of custom TERM
 alias ssh='TERM=xterm-256color ssh'
+
+alias nst="npm start"
+alias nrw="npm run watch"
