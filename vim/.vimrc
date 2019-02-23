@@ -45,54 +45,48 @@ Plug 'sheerun/vim-polyglot'
 " vim-fugitive (The best Git wrapper of all time.)
 Plug 'tpope/vim-fugitive'
 
+" ale (Asynchronous Lint Engine)
+Plug 'w0rp/ale'
+
+" junegunn/fzf.vim (Things you can do with fzf and Vim.)
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+" nerdtree (A tree explorer plugin for vim.)
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle'  }
+
+" nerdtree-git-plugin (A plugin of NERDTree showing git status flags. Works with the LATEST version of NERDTree.)
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
+" emmet-vim
+Plug 'mattn/emmet-vim'
+
+" vim-surround (Surround.vim is all about surroundings: parentheses, brackets, quotes, XML tags, and more.)
+Plug 'tpope/vim-surround'
+
+" jiangmiao/auto-pairs (Insert or delete brackets, parens, quotes in pair.)
+Plug 'jiangmiao/auto-pairs'
+
+"Vim plugin for intensely orgasmic commenting
+Plug 'scrooloose/nerdcommenter'
+
+" tern_for_vim (This is a Vim plugin that provides Tern-based JavaScript editing support.)
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+
+" fatih/vim-go (Go development plugin for Vim)
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+" YouCompleteMe (A code-completion engine for Vim.)
+Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --ts-completer --go-completer' }
+
 " vim-airline (Lean & mean status/tabline for vim that's light as air.)
 Plug 'bling/vim-airline'
 
 " vim airline themes (The official theme repository for vim-airline.)
 Plug 'vim-airline/vim-airline-themes'
 
-" tern_for_vim (This is a Vim plugin that provides Tern-based JavaScript editing support.)
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
-
-" YouCompleteMe (A code-completion engine for Vim.)
-Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --ts-completer --go-completer' }
-
-" emmet-vim
-Plug 'mattn/emmet-vim'
-
-" ale (Asynchronous Lint Engine)
-Plug 'w0rp/ale'
-
-" nerdtree (A tree explorer plugin for vim.)
-Plug 'scrooloose/nerdtree'
-
-" nerdtree-git-plugin (A plugin of NERDTree showing git status flags. Works with the LATEST version of NERDTree.)
-Plug 'Xuyuanp/nerdtree-git-plugin'
-
-" vim-surround (Surround.vim is all about surroundings: parentheses, brackets, quotes, XML tags, and more.)
-Plug 'tpope/vim-surround'
-
-" junegunn/fzf.vim (Things you can do with fzf and Vim.)
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-
-" jiangmiao/auto-pairs (Insert or delete brackets, parens, quotes in pair.)
-Plug 'jiangmiao/auto-pairs'
-
 " Yggdroot/indentLine (Displaying thin vertical lines at each indentation level for code indented with spaces.)
 Plug 'Yggdroot/indentLine'
-
-" fatih/vim-go (Go development plugin for Vim)
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
-"Vim plugin for intensely orgasmic commenting
-Plug 'scrooloose/nerdcommenter'
-
-" jbgutierrez/vim-better-comments (Easily highlight human-friendly comments in your code!)
-" Plug 'jbgutierrez/vim-better-comments'
-
-" Wakatime (Vim plugin for automatic time tracking and metrics generated from your programming activity.)
-" Plug 'wakatime/vim-wakatime'
 
 " Themes
 Plug 'kristijanhusak/vim-hybrid-material'
@@ -113,11 +107,11 @@ let g:ale_sign_error = '✗'
 let g:ale_linters = {'javascript': ['eslint', 'jshint'], 'jsx': ['eslint','stylelint']}
 let g:ale_linter_aliases = {'jsx': ['css', 'javascript']}
 let g:ale_fixers = {'javascript': ['prettier', 'eslint']}
+let g:ale_list_window_size = 5
 "let g:ale_lint_on_text_changed = 'never'
 "let g:ale_lint_on_enter = 0
 "let g:ale_open_list = 1
 "let g:ale_javascript_eslint_use_global = 1
-let g:ale_list_window_size = 5
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
