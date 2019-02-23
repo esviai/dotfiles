@@ -4,7 +4,33 @@ A very simple dotfiles from  someone who is still learning vim and tmux the hard
 ## .vimrc
 Theme: night owl
 
-I mostly use node.js and go, thus this vimrc required those two to be installed before trying to install the vim plugins.
+Plugins: 
+- vim-polyglot
+- vim-fugitive
+- ale
+- fzf
+- nerdtree
+- nerdtree-git-plugin
+- emmet-vim
+- vim-surround
+- auto-pairs
+- nerdcommenter
+- tern_for_vim
+- vim-go
+- YouCompleteMe
+- vim-airline
+- vim-airline-themes
+- indentLine
+
+Installation of python3, node.js, and go is required before installing the plugins.
+
+Notes:
+If you'd like to use YouCompleteMe with different language support, you may make adjustment on the post-hook line.
+For instance if you need java and rust support instead of js and go, then you may change the line to:
+```
+Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --ts-completer --go-completer'  }
+``````
+```
 
 ## .tmux-conf
 Functions:
