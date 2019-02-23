@@ -4,6 +4,8 @@ A very simple dotfiles from  someone who is still learning vim and tmux the hard
 ## .vimrc
 Theme: night owl
 
+I mostly use node.js and go, thus this vimrc required those two to be installed before trying to install the vim plugins.
+
 ## .tmux-conf
 Functions:
 - remap prefix from 'C-b' to 'C-a'
