@@ -17,8 +17,6 @@
 "    -> Visual mode related
 "    -> Moving around, tabs and buffers
 "    -> Editing mappings
-"    -> vimgrep searching and cope displaying
-"    -> Spell checking
 "    -> Misc
 "    -> Helper functions
 "
@@ -168,6 +166,8 @@ let NERDTreeAutoDeleteBuffer = 1
 " indentLine
 let g:indentLine_char = '┆'
 " let g:indentLine_setColors = 0
+let g:indentLine_concealcursor = 'nc' " to solve concealed texts when editing markdown
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -325,10 +325,10 @@ let g:enable_bold_font = 1
 let g:enable_italic_font = 1
 
 " Set extra options when running in GUI mode
-" if has("gui_running")
-"     set term = xterm
-" endif
-" 
+if has("gui_running")
+    set term = xterm
+endif
+
 if (has("termguicolors"))
   set termguicolors
 endif
