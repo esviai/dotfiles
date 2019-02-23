@@ -55,7 +55,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 
 " YouCompleteMe (A code-completion engine for Vim.)
-Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --ts-completer --go-completer' }
 
 " emmet-vim
 Plug 'mattn/emmet-vim'
