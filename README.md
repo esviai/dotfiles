@@ -57,3 +57,9 @@ Currently using [n](https://github.com/tj/n)
 ## Additional stuff to do
 - Enable native notifications in Chrome: chrome://flags/#enable-native-notifications
 - Add xmodmap.sh to startup application (if remap keys is needed)
+
+## Troubleshoot
+### Can't login to wifi with captive portal [source](https://blog.ham1.co.uk/2016/02/06/cannot-sign-in-using-hotel-wifi-on-linux-ubuntu-mint/)
+```
+sudo dhclient -r
+```
