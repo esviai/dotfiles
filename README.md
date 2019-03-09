@@ -1,5 +1,8 @@
 # dotfiles
-A very simple dotfiles from  someone who is still learning vim and tmux the hard way.
+A collection of my dotfiles.
+
+## OS
+Pop OS (based on Ubuntu 18.10)
 
 ## shell
 zsh with zprezto
