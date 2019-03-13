@@ -57,6 +57,10 @@ tic -x tmux-256color.terminfo
 ## Node version manager
 Currently using [n](https://github.com/tj/n)
 
+
+## Code searching tool
+I am using [The Silver Searcher](https://github.com/ggreer/the_silver_searcher) with fzf, both for the shell and in vim. So make sure to install it first
+
 ## Additional stuff to do
 - Enable native notifications in Chrome: chrome://flags/#enable-native-notifications
 - Add xmodmap.sh to startup application (if remap keys is needed)
