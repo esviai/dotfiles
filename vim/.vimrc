@@ -51,7 +51,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " nerdtree (A tree explorer plugin for vim.)
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle'  }
+Plug 'scrooloose/nerdtree'
 
 " nerdtree-git-plugin (A plugin of NERDTree showing git status flags. Works with the LATEST version of NERDTree.)
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -67,9 +67,6 @@ Plug 'jiangmiao/auto-pairs'
 
 "Vim plugin for intensely orgasmic commenting
 Plug 'scrooloose/nerdcommenter'
-
-" tern_for_vim (This is a Vim plugin that provides Tern-based JavaScript editing support.)
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 
 " fatih/vim-go (Go development plugin for Vim)
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
