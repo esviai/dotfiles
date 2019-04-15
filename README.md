@@ -70,7 +70,7 @@ I am using [The Silver Searcher](https://github.com/ggreer/the_silver_searcher) 
 ```
 sudo dhclient -r
 ```
-### ENOSPC: System limit for number of file watchers reached
+### ENOSPC: System limit for number of file watchers reached [source](https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers#the-technical-details)
 ```
 echo fs.inotify.max_user_watches=524288 | sudo tee /etc/sysctl.d/40-max-user-watches.conf && sudo sysctl --system
 ```
