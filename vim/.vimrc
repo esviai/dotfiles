@@ -74,6 +74,9 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " YouCompleteMe (A code-completion engine for Vim.)
 Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --ts-completer --go-completer' }
 
+" coc.nvim (Intellisense engine for vim8 & neovim, full language server protocol support as VSCode)
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 " vim-airline (Lean & mean status/tabline for vim that's light as air.)
 Plug 'bling/vim-airline'
 
@@ -99,10 +102,11 @@ call plug#end()
 " ale
 let g:ale_sign_warning = '▲'
 let g:ale_sign_error = '✗'
-let g:ale_linters = {'javascript': ['eslint', 'jshint'], 'jsx': ['eslint','stylelint']}
+let g:ale_linters = {'javascript': ['eslint', 'jshint'], 'jsx': ['eslint','stylelint'], 'graphql': ['eslint']}
 let g:ale_linter_aliases = {'jsx': ['css', 'javascript']}
-let g:ale_fixers = {'javascript': ['prettier', 'eslint']}
+let g:ale_fixers = {'javascript': ['prettier', 'eslint'], 'graphql': ['prettier', 'eslint']}
 let g:ale_list_window_size = 5
+let g:ale_set_highlights = 0
 "let g:ale_lint_on_text_changed = 'never'
 "let g:ale_lint_on_enter = 0
 "let g:ale_open_list = 1
