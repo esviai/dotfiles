@@ -87,13 +87,6 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'Yggdroot/indentLine'
 
 " Themes
-Plug 'kristijanhusak/vim-hybrid-material'
-Plug 'whatyouhide/vim-gotham'
-Plug 'sonph/onehalf', {'rtp': 'vim/'}
-Plug 'connorholyday/vim-snazzy'
-Plug 'junegunn/seoul256.vim'
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'trusktr/seti.vim'
 Plug 'haishanh/night-owl.vim'
 
 " Initialize plugin system
@@ -209,8 +202,8 @@ nmap <Leader>li :Lines<cr>
 nmap <Leader>lo :BLines<cr>
 
 " Use ag over grep
-if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor
+if executable('rg')
+  set grepprg=rg\ --nogroup\ --nocolor
 endif
 " https://robots.thoughtbot.com/faster-grepping-in-vim
 " bind K to grep word under cursor
@@ -250,7 +243,7 @@ endif
 "Always show current position and line number
 set ruler
 set number
-set numberwidth=5
+set numberwidth=3
 
 " Height of the command bar
 set cmdheight=2
