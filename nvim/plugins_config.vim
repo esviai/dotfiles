@@ -1,9 +1,9 @@
 " ale
 let g:ale_sign_warning = '▲'
 let g:ale_sign_error = '✗'
-let g:ale_linters = {'javascript': ['eslint', 'jshint'], 'jsx': ['eslint','stylelint'], 'graphql': ['eslint']}
+let g:ale_linters = {'javascript': ['eslint', 'jshint'], 'jsx': ['eslint','stylelint']}
 let g:ale_linter_aliases = {'jsx': ['css', 'javascript']}
-let g:ale_fixers = {'javascript': ['prettier', 'eslint'], 'graphql': ['prettier', 'eslint'], 'json': ['prettier']}
+let g:ale_fixers = {'javascript': ['prettier', 'eslint']}
 let g:ale_list_window_size = 5
 let g:ale_set_highlights = 0
 "let g:ale_lint_on_text_changed = 'never'
@@ -15,6 +15,7 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 nmap <Leader>af :ALEFix<cr>
 
 " coc
+set updatetime=300
 " use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -57,6 +58,7 @@ nmap <leader>rn <Plug>(coc-rename)
 set laststatus=2
 let g:airline_theme= 'night_owl'
 let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#coc#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
@@ -116,9 +118,8 @@ nmap <Leader>lo :BLines<cr>
 
 " Use rg over grep
 if executable('rg')
-  set grepprg=rg\ --color=never
+  set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
 endif
 " https://robots.thoughtbot.com/faster-grepping-in-vim
 " bind K to grep word under cursor
-" nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
-nnoremap K :Rg! "\b<C-R><C-W>\b"<CR>:cw<CR>
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
