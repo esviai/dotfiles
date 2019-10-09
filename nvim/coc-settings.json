@@ -1,0 +1,5 @@
+{
+  "diagnostic.messageTarget": "float",
+  "diagnostic.virtualText": false,
+  "coc.preferences.hoverTarget": "float"
+}

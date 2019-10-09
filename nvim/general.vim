@@ -47,9 +47,13 @@ else
     set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 endif
 
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
 "Always show current position and line number
 set ruler
 set number
+"set relativenumber
 set numberwidth=3
 
 " Height of the command bar
@@ -89,16 +93,6 @@ set novisualbell
 set t_vb=
 set tm=500
 
-" Add a bit extra margin to the left
-set foldcolumn=1
-
-" set Vim-specific sequences for RGB colors
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-
-" Stop auto commenting line
-au FileType * set fo-=c fo-=r fo-=o
-
 " Use spaces instead of tabs
 set expandtab
 
@@ -123,8 +117,6 @@ autocmd FileType css setlocal shiftwidth=2 tabstop=2
 autocmd FileType ejs setlocal shiftwidth=2 tabstop=2
 autocmd FileType html setlocal shiftwidth=2 tabstop=2
 
-" au BufRead,BufNewFile,BufEnter /home/dev/Documents/Codes/* setlocal ts=4 sw=4<Paste>
-
 " Natural splitting
 set splitbelow
 set splitright
@@ -138,12 +130,6 @@ endtry
 
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
-" Theme
-set background=dark
-colorscheme night-owl
-let g:enable_bold_font = 1
-let g:enable_italic_font = 1
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -183,11 +169,6 @@ highlight htmlArg gui=italic cterm=italic
 highlight Type gui=italic cterm=italic
 highlight Constant gui=italic cterm=italic
 highlight jsStorageClass gui=italic cterm=italic
-
-" Properly disable sound on errors on MacVim
-if has("gui_macvim")
-    autocmd GUIEnter * set vb t_vb=
-endif
 
 " Delete trailing white space on save, useful for some filetypes ;)
 fun! CleanExtraSpaces()
