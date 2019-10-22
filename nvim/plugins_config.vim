@@ -1,6 +1,7 @@
 " ========== Theme ==========
 set background=dark
-colorscheme night-owl
+" colorscheme night-owl
+colorscheme nord
 let g:enable_bold_font = 1
 let g:enable_italic_font = 1
 
@@ -32,15 +33,24 @@ let g:go_highlight_build_constraints = 1
 " ========== ale ==========
 let g:ale_sign_warning = '▲'
 let g:ale_sign_error = '✗'
-let g:ale_linters = {'javascript': ['eslint', 'jshint'], 'jsx': ['eslint','stylelint']}
+let g:ale_linters = {
+      \ 'javascript': ['eslint', 'jshint'],
+      \ 'jsx': ['eslint','stylelint'],
+      \ 'reason': ['ols']
+\ }
 let g:ale_linter_aliases = {'jsx': ['css', 'javascript']}
-let g:ale_fixers = {'javascript': ['prettier', 'eslint']}
+let g:ale_fixers = {
+      \ 'javascript': ['prettier', 'eslint'],
+      \ 'typescript': ['prettier', 'tslint'],
+      \ 'reason': ['refmt']
+\}
 let g:ale_list_window_size = 5
 let g:ale_set_highlights = 0
 "let g:ale_lint_on_text_changed = 'never'
 "let g:ale_lint_on_enter = 0
 "let g:ale_open_list = 1
 let g:ale_javascript_eslint_use_global = 1
+let g:ale_fix_on_save = 1
 nmap <silent> [r <Plug>(ale_previous_wrap)
 nmap <silent> ]r <Plug>(ale_next_wrap)
 nmap <Leader>af :ALEFix<cr>
@@ -88,6 +98,13 @@ inoremap <silent><expr> <Tab>
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <Tab> and <S-Tab> to navigate the completion list
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+"Use <cr> to confirm completion
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Use `[c` and `]c` to navigate diagnostics
 nmap <silent> [c <Plug>(coc-diagnostic-prev)

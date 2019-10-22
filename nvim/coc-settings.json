@@ -1,7 +1,8 @@
 {
+  "coc.preferences.hoverTarget": "float",
+  "diagnostic.displayByAle": false,
   "diagnostic.messageTarget": "float",
   "diagnostic.virtualText": false,
-  "coc.preferences.hoverTarget": "float",
   "languageserver": {
     "ocaml": {
       "command": "ocaml-language-server",
