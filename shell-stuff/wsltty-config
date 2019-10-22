@@ -1,0 +1,14 @@
+# To use common configuration in %APPDATA%\mintty, simply remove this file
+ThemeFile=nord
+Transparency=off
+Font=Space Mono for Powerline
+FontHeight=8
+Scrollbar=none
+OpaqueWhenFocused=no
+BellType=0
+Term=xterm-256color
+ClipShortcuts=no
+CtrlShiftShortcuts=yes
+BoldAsFont=yes
+BoldAsColour=no
+RowSpacing=2
