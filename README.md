@@ -6,7 +6,7 @@ A collection of my dotfiles.
 * WSL (Ubuntu)
 
 ## Terminal
-Konsole and WSL with [nord](https://www.nordtheme.com/ports) theme.
+Konsole and wsltty with [nord](https://www.nordtheme.com/ports) theme.
 
 ## Languages
 * node.js (Mainly use it for backend stuff and React in the frontend)
