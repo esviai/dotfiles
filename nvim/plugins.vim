@@ -5,13 +5,10 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " ale (Asynchronous Lint Engine)
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 
 " coc.nvim (Intellisense engine for vim8 & neovim, full language server protocol support as VSCode)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-" fatih/vim-go (Go development plugin for Vim)
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " vim-polyglot (A collection of language packs for Vim.)
 Plug 'sheerun/vim-polyglot'
@@ -42,11 +39,16 @@ Plug 'Yggdroot/indentLine'
 
 " Themes
 Plug 'haishanh/night-owl.vim'
+Plug 'arcticicestudio/nord-vim'
+Plug 'mhartington/oceanic-next'
 
 " vim-airline (Lean & mean status/tabline for vim that's light as air.)
 Plug 'bling/vim-airline'
 
 " vim airline themes (The official theme repository for vim-airline.)
 Plug 'vim-airline/vim-airline-themes'
+
+" wakatime (Vim plugin for automatic time tracking and metrics generated from your programming activity. )
+Plug 'wakatime/vim-wakatime'
 
 call plug#end()

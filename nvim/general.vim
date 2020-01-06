@@ -136,6 +136,8 @@ if has("gui_running")
     set term = xterm
 endif
 
+" When using hyper in WSL, then set notermguicolors
+" set notermguicolors
 if (has("termguicolors"))
   set termguicolors
 endif
@@ -180,5 +182,5 @@ fun! CleanExtraSpaces()
 endfun
 
 if has("autocmd")
-    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
+    autocmd BufWritePre *.txt,*.js,*.jsx,*.py,*.wiki,*.sh,*.coffee,*.ts,*.tsx :call CleanExtraSpaces()
 endif

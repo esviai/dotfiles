@@ -1,9 +1,12 @@
 " ========== Theme ==========
 set background=dark
 " colorscheme night-owl
-colorscheme nord
-let g:enable_bold_font = 1
-let g:enable_italic_font = 1
+" colorscheme nord
+" let g:enable_bold_font = 1
+" let g:enable_italic_font = 1
+colorscheme OceanicNext
+let g:oceanic_next_terminal_bold = 1
+let g:oceanic_next_terminal_italic = 1
 
 " ========== nerdtree ==========
 autocmd StdinReadPre * let s:std_in=1
@@ -34,18 +37,21 @@ let g:go_highlight_build_constraints = 1
 let g:ale_sign_warning = '▲'
 let g:ale_sign_error = '✗'
 let g:ale_linters = {
-      \ 'javascript': ['eslint', 'jshint'],
+      \ 'javascript': ['eslint', 'prettier'],
       \ 'jsx': ['eslint','stylelint'],
-      \ 'reason': ['ols']
+      \ 'typescript': ['eslint', 'prettier', 'tslint'],
+      \ 'reason': ['reason-language-server']
 \ }
-let g:ale_linter_aliases = {'jsx': ['css', 'javascript']}
+let g:ale_linter_aliases = {'jsx': ['css', 'javascript'], 'typescriptreact': 'typescript'}
 let g:ale_fixers = {
       \ 'javascript': ['prettier', 'eslint'],
       \ 'typescript': ['prettier', 'tslint'],
+      \ 'typescriptreact': ['prettier', 'tslint'],
       \ 'reason': ['refmt']
 \}
 let g:ale_list_window_size = 5
 let g:ale_set_highlights = 0
+let g:ale_reason_ls_executable='/home/dev/reason-language-server'
 "let g:ale_lint_on_text_changed = 'never'
 "let g:ale_lint_on_enter = 0
 "let g:ale_open_list = 1
@@ -82,7 +88,7 @@ endif
 
 " ========== coc ==========
 " extensions
-let g:coc_global_extensions = ['coc-eslint', 'coc-prettier', 'coc-tsserver','coc-tslint', 'coc-tslint-plugin', 'coc-css', 'coc-json', 'coc-go']
+let g:coc_global_extensions = ['coc-eslint', 'coc-prettier', 'coc-tsserver', 'coc-html', 'coc-css', 'coc-json', 'coc-omnisharp']
 " Smaller updatetime for CursorHold & CursorHoldI
 set updatetime=300
 " use <tab> for trigger completion and navigate to the next complete item
