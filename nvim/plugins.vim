@@ -13,6 +13,9 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " vim-polyglot (A collection of language packs for Vim.)
 Plug 'sheerun/vim-polyglot'
 
+" vim-go (Go development plugin for Vim)
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
 " emmet-vim
 Plug 'mattn/emmet-vim'
 

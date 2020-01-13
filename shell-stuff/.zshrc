@@ -4,7 +4,7 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Node version manager
-export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
+# export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -13,10 +13,14 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # aws
-export PATH=~/.local/bin:$PATH
+# export PATH=~/.local/bin:$PATH
 
 # eb
-export PATH=/home/dev/.ebcli-virtual-env/executables:$PATH
+# export PATH=/home/dev/.ebcli-virtual-env/executables:$PATH
+
+# go
+export GOPATH="$HOME/go"
+export PATH="$PATH:$(go env GOPATH)/bin"
 
 # Yarn
 export PATH=~/.yarn/bin:$PATH
