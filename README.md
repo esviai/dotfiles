@@ -3,10 +3,10 @@ A collection of my dotfiles.
 
 ## OS
 * Manjaro 18.1.0 (KDE)
-* WSL (Ubuntu)
+* WSL2 (Ubuntu)
 
 ## Terminal
-Konsole and wsltty with [nord](https://www.nordtheme.com/ports) theme.
+Konsole, wsltty, and iterm2 with [nord](https://www.nordtheme.com/ports) theme.
 
 ## Font
 [Space Mono](https://github.com/googlefonts/spacemono)
@@ -43,14 +43,14 @@ Plugins:
 * indentLine
 * coc
 
-**Installation of python3, node.js, go, ocaml language server, and ripgrep is required before installing the plugins.**
+**Installation of python3, node.js, go, reasonml and its language server, and ripgrep is required before installing the plugins.**
 
 Notes: 
-With this config, I installed several [coc extensions](https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions), such as eslint, prettier, tsserver, tslint, tslint-plugin, css, json, and [ocaml language server](https://github.com/freebroccolo/ocaml-language-server).
+With this config, I installed several [coc extensions](https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions), such as eslint, prettier, tsserver, tslint, tslint-plugin, css, json, and [reason language server](https://github.com/jaredly/reason-language-server).
 > Since I'm currently using neovim, so the available .vimrc doesn't represent my setup anymore. Yet, it's still valid and very much functioning. I'm keeping it here, in case someone wants to have a look at it (or for when I change back to vim in the future)
 
 ## .tmux-conf
-tmux v2.9
+tmux v3.0a
 Functions:
 * remap prefix from 'C-b' to 'C-a'
 * vi mode copy paste
