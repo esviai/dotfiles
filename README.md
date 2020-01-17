@@ -8,6 +8,9 @@ A collection of my dotfiles.
 ## Terminal
 Konsole and wsltty with [nord](https://www.nordtheme.com/ports) theme.
 
+## Font
+[Space Mono](https://github.com/googlefonts/spacemono)
+
 ## Languages
 * node.js (Mainly use it for backend stuff and React in the frontend)
 * go (For fun)
