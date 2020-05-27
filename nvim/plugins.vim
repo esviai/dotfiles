@@ -1,5 +1,6 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
+" this is a comment
 " junegunn/fzf.vim (Things you can do with fzf and Vim.)
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
