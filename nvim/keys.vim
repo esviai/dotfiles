@@ -1,4 +1,4 @@
-" Change leader to ,
+" Change leadeg to ,
 let mapleader = ","
 let g:mapleader = ","
 
@@ -121,7 +121,7 @@ function! VisualSelection(direction, extra_filter) range
   let l:pattern = substitute(l:pattern, "\n$", "", "")
 
   if a:direction == 'gv'
-    call CmdLine("Ag '" . l:pattern . "' " )
+    call CmdLine("Rg '" . l:pattern . "' " )
   elseif a:direction == 'replace'
     call CmdLine("%s" . '/'. l:pattern . '/')
   endif

@@ -1,12 +1,14 @@
 " ========== Theme ==========
 set background=dark
-" colorscheme night-owl
 " colorscheme nord
+" colorscheme night-owl
 " let g:enable_bold_font = 1
 " let g:enable_italic_font = 1
-colorscheme OceanicNext
-let g:oceanic_next_terminal_bold = 1
-let g:oceanic_next_terminal_italic = 1
+" colorscheme OceanicNext
+" let g:oceanic_next_terminal_bold = 1
+" let g:oceanic_next_terminal_italic = 1
+colorscheme palenight
+let g:palenight_terminal_italics=1
 
 " ========== nerdtree ==========
 autocmd StdinReadPre * let s:std_in=1
@@ -14,6 +16,9 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let NERDTreeAutoDeleteBuffer = 1
 nmap <Leader>nt :NERDTree<cr>
+
+" =========== fugitive ===========
+set diffopt+=vertical
 
 " ========== indentLine ==========
 " let g:indentLine_char = '┆'
@@ -103,7 +108,7 @@ inoremap <silent><expr> <Tab>
       \ coc#refresh()
 
 " Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
+inoremap <silent><expr> <C-space> coc#refresh()
 
 " Use <Tab> and <S-Tab> to navigate the completion list
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"

@@ -1,6 +1,5 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
-" this is a comment
 " junegunn/fzf.vim (Things you can do with fzf and Vim.)
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -11,11 +10,11 @@ Plug 'dense-analysis/ale'
 " coc.nvim (Intellisense engine for vim8 & neovim, full language server protocol support as VSCode)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" vim-polyglot (A collection of language packs for Vim.)
-Plug 'sheerun/vim-polyglot'
-
 " vim-go (Go development plugin for Vim)
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+" vim-polyglot (A collection of language packs for Vim.)
+Plug 'sheerun/vim-polyglot'
 
 " emmet-vim
 Plug 'mattn/emmet-vim'
@@ -36,7 +35,7 @@ Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 
 "Vim plugin for intensely orgasmic commenting
-Plug 'scrooloose/nerdcommenter'
+Plug 'preservim/nerdcommenter'
 
 " Yggdroot/indentLine (Displaying thin vertical lines at each indentation level for code indented with spaces.)
 Plug 'Yggdroot/indentLine'
@@ -45,6 +44,8 @@ Plug 'Yggdroot/indentLine'
 Plug 'haishanh/night-owl.vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'mhartington/oceanic-next'
+Plug 'ayu-theme/ayu-vim'
+Plug 'drewtempelmeyer/palenight.vim'
 
 " vim-airline (Lean & mean status/tabline for vim that's light as air.)
 Plug 'bling/vim-airline'

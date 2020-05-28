@@ -31,7 +31,7 @@ set encoding=utf8
 set ffs=unix,dos,mac
 
 " Set 7 lines to the cursor - when moving vertically using j/k
-" set so=7
+set so=7
 
 " Turn on the WiLd menu
 set wildmenu
@@ -53,7 +53,7 @@ set shortmess+=c
 "Always show current position and line number
 set ruler
 set number
-"set relativenumber
+set relativenumber
 set numberwidth=3
 
 " Height of the command bar
@@ -140,6 +140,11 @@ endif
 " set notermguicolors
 if (has("termguicolors"))
   set termguicolors
+endif
+
+" Enable true colors when using neovim
+if (has("nvim"))
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
 
 " Enable 256 colors palette in Gnome Terminal

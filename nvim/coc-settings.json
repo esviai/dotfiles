@@ -5,7 +5,7 @@
   "diagnostic.virtualText": false,
   "languageserver": {
     "reason": {
-      "command": "/home/dev/reason-language-server",
+      "command": "/Users/dev/reason-language-server",
       "filetypes": ["reason"]
     },
     "golang": {
