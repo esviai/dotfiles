@@ -25,6 +25,26 @@ end
 -- fugitive
 ---------------------------------------------------------------------
 map("n", "<leader>gs", vim.cmd.Git);
+map({ "n", "v" }, "<leader>gb", ":GBrowse! <cr>");
+
+---------------------------------------------------------------------
+-- vim-rhubarb
+---------------------------------------------------------------------
+vim.cmd([[ command! -nargs=1 Browse silent exec '!open "<args>"' ]])
+
+---------------------------------------------------------------------
+-- nvim-ufo
+---------------------------------------------------------------------
+vim.o.foldcolumn = '1'
+vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+
+-- Using ufo provider need remap `zR` and `zM`.
+vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+
+require('ufo').setup()
 
 ---------------------------------------------------------------------
 -- lsp-zero
@@ -33,53 +53,90 @@ local lsp = require('lsp-zero')
 
 lsp.preset('recommended')
 
--- Configure lua language server for neovim
--- lsp.nvim_workspace()
+lsp.on_attach(function(client, bufnr)
+  lsp.default_keymaps({ buffer = bufnr })
+  vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<cr>', { buffer = true })
 
--- local cmp = require('cmp')
--- local cmp_select = { behavior = cmp.SelectBehavior.Select}
--- local cmp_mappings = lsp.defaults.cmp_mappings({
--- })
+  -- https://github.com/VonHeikemen/lsp-zero.nvim/blob/v2.x/doc/md/lsp.md#always-use-the-active-servers
+  -- it'll use all active server with no order guaranteed, so it's best to activate if we only have one server per file
+  -- it's a synchronous funtion
+  lsp.buffer_autoformat()
+end)
 
--- Fix Undefined global 'vim'
-lsp.configure('sumneko_lua', {
-  settings = {
-    Lua = {
-      diagnostics = {
-        globals = { 'vim' }
+lsp.set_server_config({
+  capabilities = {
+    textDocument = {
+      foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true
       }
     }
   }
 })
 
--- format before save
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-lsp.on_attach(function(client, bufnr)
-  if client.supports_method("textDocument/formatting") then
-    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-    vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-      group = augroup,
-      buffer = bufnr,
-      callback = function()
-        vim.lsp.buf.format()
-      end,
-    })
-  end
-end)
+require('lspconfig').phpactor.setup({
+  -- single_file_support = false,
+})
+
+-- Fix Undefined global 'vim'
+require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
+
+-- disable log because it gets too big
+vim.lsp.set_log_level("off")
 
 lsp.setup()
 
--- vim.diagnostic.config({
---   virtual_text = true
--- })
+---------------------------------------------------------------------
+-- cmp
+---------------------------------------------------------------------
+local cmp = require('cmp')
+local cmp_action = require('lsp-zero').cmp_action()
+
+require('luasnip.loaders.from_vscode').lazy_load()
+
+cmp.setup({
+  sources = {
+    { name = 'path' },
+    { name = 'nvim_lsp' },
+    { name = 'nvim_lua' },
+    { name = 'buffer' },
+    { name = 'luasnip' },
+  },
+  mapping = {
+    ['<C-f>'] = cmp_action.luasnip_jump_forward(),
+    ['<C-b>'] = cmp_action.luasnip_jump_backward(),
+    ['<CR>'] = cmp.mapping.confirm({ select = false }),
+    ['<Tab>'] = cmp_action.luasnip_supertab(),
+    ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
+  },
+  preselect = 'item',
+  completion = {
+    completeopt = 'menu,menuone,noinsert'
+  },
+})
+-- -- local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+-- lsp.on_attach(function(client, bufnr)
+--   -- format before save
+--   -- I copied this before there's supported autoformat
+--   -- if client.supports_method("textDocument/formatting") then
+--   --   vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+--   --   vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+--   --     group = augroup,
+--   --     buffer = bufnr,
+--   --     callback = function()
+--   --       vim.lsp.buf.format()
+--   --     end,
+--   --   })
+--   -- end
+-- end)
 
 ---------------------------------------------------------------------
 -- nvim-autopairs
 ---------------------------------------------------------------------
 -- add spaces between parentheses
 -- https://github.com/windwp/nvim-autopairs/wiki/Custom-rules#add-spaces-between-parentheses
-local npairs = require 'nvim-autopairs'
-local Rule   = require 'nvim-autopairs.rule'
+local npairs   = require 'nvim-autopairs'
+local Rule     = require 'nvim-autopairs.rule'
 
 local brackets = { { '(', ')' }, { '[', ']' }, { '{', '}' } }
 npairs.add_rules {
@@ -133,6 +190,7 @@ require 'nvim-treesitter.configs'.setup {
   highlight = {
     -- `false` will disable the whole extension
     enable = true,
+    disable = { "php" },
 
     -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
     -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
@@ -155,6 +213,17 @@ require 'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   },
 }
+
+-- This is a minimal viable solution that will achieve the auto close functionality.
+-- https://github.com/nvim-tree/nvim-tree.lua/wiki/Auto-Close
+vim.api.nvim_create_autocmd("BufEnter", {
+  nested = true,
+  callback = function()
+    if #vim.api.nvim_list_wins() == 1 and require("nvim-tree.utils").is_nvim_tree_buf() then
+      vim.cmd "quit"
+    end
+  end
+})
 
 ---------------------------------------------------------------------
 -- nvim-tree

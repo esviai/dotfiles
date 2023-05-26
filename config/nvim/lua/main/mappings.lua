@@ -1,26 +1,19 @@
--- add default options to key mapping
-local function map(mode, lhs, rhs, opts)
-  local options = { noremap = true, silent = true }
-  if opts then
-    options = vim.tbl_extend('force', options, opts)
-  end
-  vim.keymap.set(mode, lhs, rhs, options)
-end
+local map = require "main.map"
 
 vim.g.mapleader = ","
 
 map("n", "<leader>w", ":w!<cr>") -- faster saving
-map("n", "J", "mzJ`z") -- fix cursor position when doing "J"
-map("", "0", "^") -- 0 as first non-blank character
+map("n", "J", "mzJ`z")           -- fix cursor position when doing "J"
+map("", "0", "^")                -- 0 as first non-blank character
 
 -- ignore common typos
 map("n", "Q", "<nop>")
 map("n", "q:", "<nop>")
 
 -- copy paste experience
-map("x", "<leader>p", [["_dP]]) -- replace and keep your pasted selection
+map("x", "<leader>p", [["_dP]])         -- replace and keep your pasted selection
 map({ "n", "v" }, "<leader>y", [["+y]]) -- copy to clipboard
-map("n", "<leader>Y", [["+Y]]) -- copy line to clipboard
+map("n", "<leader>Y", [["+Y]])          -- copy line to clipboard
 
 -- buffer movements
 map("", "<leader>l", vim.cmd.bnext)

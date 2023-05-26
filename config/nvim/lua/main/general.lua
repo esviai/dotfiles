@@ -16,15 +16,16 @@ o.shiftround = true
 o.shiftwidth = 2
 o.softtabstop = 2
 o.tabstop = 2
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "php",
-	callback = function()
-		vim.opt_local.shiftwidth = 4
-		vim.opt_local.tabstop = 4
-	end
-})
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "php",
+--   callback = function()
+--     vim.opt_local.shiftwidth = 4
+--     vim.opt_local.tabstop = 4
+--   end
+-- })
 
--- indent o.autoindent = true
+-- indent
+o.autoindent = true
 o.smartindent = true
 
 -- disable backup and swap
@@ -71,17 +72,17 @@ o.wrap = true
 -- highlight on yank
 local yankGrp = api.nvim_create_augroup("YankHighlight", { clear = true })
 api.nvim_create_autocmd("TextYankPost", {
-    command = "silent! lua vim.highlight.on_yank()",
-    pattern = "*",
-    group = yankGrp,
+  command = "silent! lua vim.highlight.on_yank()",
+  pattern = "*",
+  group = yankGrp,
 })
 
 local befSaveGrp = vim.api.nvim_create_augroup("BeforeSave", { clear = true })
 -- delete trailing white space on save
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-    pattern = { "*" },
-    command = [[%s/\s\+$//e]],
-    group = befSaveGrp,
+  pattern = { "*" },
+  command = [[%s/\s\+$//e]],
+  group = befSaveGrp,
 })
 -- format on save
 -- vim.api.nvim_create_autocmd({ "BufWritePre" }, {
@@ -93,5 +94,5 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 
 -- go to last loc when opening a buffer
 api.nvim_create_autocmd("BufReadPost", {
-    command = [[if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g`\"" | endif]]
+  command = [[if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g`\"" | endif]]
 })

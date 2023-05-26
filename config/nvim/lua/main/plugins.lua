@@ -21,25 +21,34 @@ return require('packer').startup(function(use)
 
   use {
     'VonHeikemen/lsp-zero.nvim',
+    branch = 'v2.x',
     requires = {
       -- LSP Support
-      { 'neovim/nvim-lspconfig' },
-      { 'williamboman/mason.nvim' },
-      { 'williamboman/mason-lspconfig.nvim' },
+      { 'neovim/nvim-lspconfig' }, -- Required
+      {
+        -- Optional
+        'williamboman/mason.nvim',
+        run = function()
+          pcall(vim.cmd, 'MasonUpdate')
+        end,
+      },
+      { 'williamboman/mason-lspconfig.nvim' }, -- Optional
 
       -- Autocompletion
-      { 'hrsh7th/nvim-cmp' },
+      { 'hrsh7th/nvim-cmp' },     -- Required
+      { 'hrsh7th/cmp-nvim-lsp' }, -- Required
+      { 'hrsh7th/cmp-nvim-lua' },
       { 'hrsh7th/cmp-buffer' },
       { 'hrsh7th/cmp-path' },
       { 'saadparwaiz1/cmp_luasnip' },
-      { 'hrsh7th/cmp-nvim-lsp' },
-      { 'hrsh7th/cmp-nvim-lua' },
 
       -- Snippets
-      { 'L3MON4D3/LuaSnip' },
-      { 'rafamadriz/friendly-snippets' },
+      { 'L3MON4D3/LuaSnip' },             -- Required
+      { 'rafamadriz/friendly-snippets' }, -- Optional
     }
   }
+
+  use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' }
 
   use {
     "windwp/nvim-autopairs",
@@ -49,7 +58,8 @@ return require('packer').startup(function(use)
   use({
     "kylechui/nvim-surround",
     tag = "*", -- Use for stability; omit to use `main` branch for the latest features
-    config = function() require("nvim-surround").setup({
+    config = function()
+      require("nvim-surround").setup({
         -- Configuration here, or leave empty to use defaults
       })
     end
@@ -60,11 +70,49 @@ return require('packer').startup(function(use)
     requires = {
       'nvim-tree/nvim-web-devicons', -- optional, for file icons
     },
-    tag = 'nightly' -- optional, updated every week. (see issue #1193)
+    tag = 'nightly'                  -- optional, updated every week. (see issue #1193)
   }
 
   use 'folke/tokyonight.nvim'
   use 'tpope/vim-fugitive'
+  use 'tpope/vim-rhubarb'
   use "wakatime/vim-wakatime"
-  use "github/copilot.vim"
+
+  -- debugging
+  use {
+    "mfussenegger/nvim-dap",
+  }
+  use {
+    "theHamsta/nvim-dap-virtual-text",
+    requires = {
+      "mfussenegger/nvim-dap"
+    },
+  }
+  use {
+    "rcarriga/nvim-dap-ui",
+    requires = {
+      "mfussenegger/nvim-dap"
+    },
+  }
+  use "nvim-telescope/telescope-dap.nvim"
+
+  -- use {
+  --   "zbirenbaum/copilot.lua",
+  --   cmd = "Copilot",
+  --   event = "InsertEnter",
+  --   config = function()
+  --     require("copilot").setup({
+  --       suggestion = { enabled = false },
+  --       panel = { enabled = false },
+  --     })
+  --   end
+  -- }
+
+  -- use {
+  --   "zbirenbaum/copilot-cmp",
+  --   after = { "copilot.lua" },
+  --   config = function()
+  --     require("copilot_cmp").setup()
+  --   end
+  -- }
 end)
