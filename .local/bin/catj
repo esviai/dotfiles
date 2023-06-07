@@ -1,0 +1,13 @@
+#!/usr/bin/env -S jq --raw-output --from-file --stream
+. as $in
+| select(length > 1)
+| (
+  .[0] | map(
+    if type == "number"
+    then "[" + @json + "]"
+    else "." + .
+    end
+  ) | join("")
+)
++ " = "
++ (.[1] | @json)
