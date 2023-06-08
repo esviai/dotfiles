@@ -57,32 +57,32 @@ end
 
 dapui.setup()
 
--- require "dapui".setup {
---   layouts = {
---     {
---       elements = {
---         { id = "scopes", size = 0.25 },
---         "breakpoints",
---         "stacks",
---         "watches",
---       },
---       size = 40, -- 40 columns
---       position = "right",
---     },
---     {
---       elements = {
---         "repl",
---         "console",
---       },
---       size = 0.25, -- 25% of total lines
---       position = "bottom",
---     },
---   }
--- }
+require "dapui".setup {
+  layouts = {
+    {
+      elements = {
+        { id = "scopes", size = 0.25 },
+        "breakpoints",
+        "stacks",
+        "watches",
+      },
+      size = 40, -- 40 columns
+      position = "right",
+    },
+    {
+      elements = {
+        "repl",
+        "console",
+      },
+      size = 0.25, -- 25% of total lines
+      position = "bottom",
+    },
+  }
+}
 
--- require "nvim-dap-virtual-text".setup {
---   commented = true,
--- }
+require "nvim-dap-virtual-text".setup {
+  commented = true,
+}
 
 
 map("n", "<F5>", require "dap".continue, {})

@@ -55,7 +55,9 @@ lsp.preset('recommended')
 
 lsp.on_attach(function(client, bufnr)
   lsp.default_keymaps({ buffer = bufnr })
-  vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<cr>', { buffer = true })
+  vim.keymap.set('n', 'tr', '<cmd>Telescope lsp_references<cr>', { buffer = true })
+  vim.keymap.set('n', 'ti', '<cmd>Telescope lsp_implementations<cr>', { buffer = true })
+  vim.keymap.set('n', 'td', '<cmd>Telescope diagnostics<cr>', { buffer = true })
 
   -- https://github.com/VonHeikemen/lsp-zero.nvim/blob/v2.x/doc/md/lsp.md#always-use-the-active-servers
   -- it'll use all active server with no order guaranteed, so it's best to activate if we only have one server per file
@@ -74,9 +76,9 @@ lsp.set_server_config({
   }
 })
 
-require('lspconfig').phpactor.setup({
-  -- single_file_support = false,
-})
+-- require('lspconfig').phpactor.setup({
+--   -- single_file_support = false,
+-- })
 
 -- Fix Undefined global 'vim'
 require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
@@ -85,6 +87,10 @@ require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
 vim.lsp.set_log_level("off")
 
 lsp.setup()
+
+vim.diagnostic.config({
+  virtual_text = false
+})
 
 ---------------------------------------------------------------------
 -- cmp

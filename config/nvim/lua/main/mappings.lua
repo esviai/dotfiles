@@ -20,6 +20,7 @@ map("", "<leader>l", vim.cmd.bnext)
 map("", "<leader>h", vim.cmd.bprevious)
 map("", "<leader>bd", vim.cmd.bd)
 map("", "<leader>ba", ":bufdo bd <cr>")
+map("", "<leader>cc", ":cclose <cr>")
 
 -- window movements
 map("n", "<C-j>", "<C-w>j")
