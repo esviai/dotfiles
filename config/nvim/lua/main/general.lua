@@ -1,11 +1,11 @@
-color = color or "tokyonight"
+color = "tokyonight"
 vim.cmd.colorscheme(color)
 
-vim.api.nvim_set_hl(0, "Normal", { bg = 'none' }) -- Make normal text transparent
-vim.api.nvim_set_hl(0, "NormalNC", { bg = 'none' }) -- Make normal text in non-current windows transparent
+vim.api.nvim_set_hl(0, "Normal", { bg = 'none' })      -- Make normal text transparent
+vim.api.nvim_set_hl(0, "NormalNC", { bg = 'none' })    -- Make normal text in non-current windows transparent
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = 'none' }) -- Make normal text in non-current windows transparent
 
-vim.cmd.lang('en_US.UTF-8') -- set utf8 and en_US as standart
+vim.cmd.lang('en_US.UTF-8')                            -- set utf8 and en_US as standart
 
 local o = vim.o
 local api = vim.api
@@ -34,10 +34,10 @@ o.writebackup = false
 o.swapfile = false
 
 -- searching
-o.hlsearch = false -- disable search hightlight
+o.hlsearch = false  -- disable search hightlight
 o.incsearch = true
 o.ignorecase = true -- case insensitive searc
-o.smartcase = true -- unless capital letters are involved
+o.smartcase = true  -- unless capital letters are involved
 
 -- number column
 o.number = true
@@ -46,7 +46,7 @@ o.numberwidth = 3
 
 -- sign column
 o.signcolumn = 'yes'
-o.colorcolumn = 100
+-- o.colorcolumn = 100
 
 -- scrolling
 o.scrolloff = 7
@@ -64,7 +64,7 @@ o.ttimeoutlen = 0
 o.autoread = true -- auto read when file is changed from outside
 o.backspace = 'eol,start,indent'
 o.hidden = true
-o.lazyredraw = true -- don't redraw while executing macros
+o.lazyredraw = true    -- don't redraw while executing macros
 o.termguicolors = true -- enable highlight groups
 -- o.wildmenu = true
 o.wrap = true

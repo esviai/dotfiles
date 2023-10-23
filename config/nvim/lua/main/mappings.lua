@@ -1,7 +1,5 @@
 local map = require "main.map"
 
-vim.g.mapleader = ","
-
 map("n", "<leader>w", ":w!<cr>") -- faster saving
 map("n", "J", "mzJ`z")           -- fix cursor position when doing "J"
 map("", "0", "^")                -- 0 as first non-blank character
@@ -41,3 +39,8 @@ map("n", "n", "nzzzv")
 map("n", "N", "Nzzzv")
 map('', '*', '<Plug>(asterisk-z*)zz')
 map('', '#', '<Plug>(asterisk-z#)zz')
+
+-- Add undo break-points
+map("i", ",", ",<c-g>u")
+map("i", ".", ".<c-g>u")
+map("i", ";", ";<c-g>u")

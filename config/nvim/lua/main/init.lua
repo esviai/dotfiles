@@ -1,3 +1,3 @@
-require("main.general")
-require("main.plugins")
-require("main.mappings")
+require('main.general')
+require('main.mappings')
+require('main.map')
