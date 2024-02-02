@@ -6,6 +6,11 @@ return {
     opts = {}
   },
   {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000
+  },
+  {
     'kevinhwang91/nvim-ufo',
     dependencies = 'kevinhwang91/promise-async'
   },
@@ -38,22 +43,27 @@ return {
     tag = '0.1.4',
     dependencies = {
       'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope-file-browser.nvim',
+      "nvim-telescope/telescope-live-grep-args.nvim"
     },
-    config = function()
-      require('telescope').setup({
-        extensions = {
-          fzf = {
-            fuzzy = true,
-            case_mode = 'smart_case',
-          }
-        }
-      })
-
-      -- get fzf to load and working with telescope
-      require('telescope').load_extension('fzf')
-      -- get ui-select loaded and working with telescope
-      require('telescope').load_extension('ui-select')
-    end,
+  },
+  {
+    'hrsh7th/nvim-cmp',
+    dependencies = {
+      'neovim/nvim-lspconfig',
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-nvim-lua',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
+      'saadparwaiz1/cmp_luasnip',
+      'L3MON4D3/LuaSnip',
+      'rafamadriz/friendly-snippets',
+      {
+        'nvim-telescope/telescope-live-grep-args.nvim',
+        version = '^1.0.0',
+      }
+    },
   },
   {
     'nvim-treesitter/nvim-treesitter',
@@ -109,22 +119,9 @@ return {
   'tpope/vim-rhubarb',
   {
     'VonHeikemen/lsp-zero.nvim',
-    branch = 'v2.x',
-    dependencies = {
-      -- LSP Support
-      { 'neovim/nvim-lspconfig' },             -- Required
-      { 'williamboman/mason.nvim' },           -- Optional
-      { 'williamboman/mason-lspconfig.nvim' }, -- Optional
-      -- Autocompletion
-      { 'hrsh7th/nvim-cmp' },                  -- Required
-      { 'hrsh7th/cmp-nvim-lsp' },              -- Required
-      { 'hrsh7th/cmp-nvim-lua' },              -- Required
-      { 'hrsh7th/cmp-buffer' },                -- Required
-      { 'hrsh7th/cmp-path' },                  -- Required
-      { 'saadparwaiz1/cmp_luasnip' },
-      { 'L3MON4D3/LuaSnip' },                  -- Required
-      { 'rafamadriz/friendly-snippets' },      -- Optional
-    }
+    branch = 'v3.x',
+    lazy = true,
+    config = false,
   },
   'wakatime/vim-wakatime',
   {
@@ -138,5 +135,5 @@ return {
         ignored_next_char = "[%w%.]",
       }
     end
-  },
+  }
 }

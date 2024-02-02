@@ -1,4 +1,5 @@
-color = "tokyonight"
+local color = "tokyonight"
+-- color = "catppuccin-latte"
 vim.cmd.colorscheme(color)
 
 vim.api.nvim_set_hl(0, "Normal", { bg = 'none' })      -- Make normal text transparent
@@ -53,6 +54,9 @@ o.scrolloff = 7
 o.sidescrolloff = 15
 o.sidescroll = 7
 
+-- jumpoptions
+o.jumpoptions = 'stack'
+
 -- natural split
 o.splitbelow = true
 o.splitright = true
@@ -68,6 +72,15 @@ o.lazyredraw = true    -- don't redraw while executing macros
 o.termguicolors = true -- enable highlight groups
 -- o.wildmenu = true
 o.wrap = true
+
+
+-- don't auto commenting new lines
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "*",
+  callback = function()
+    vim.cmd [[setlocal formatoptions-=c formatoptions-=r formatoptions-=o]]
+  end
+})
 
 -- highlight on yank
 local yankGrp = api.nvim_create_augroup("YankHighlight", { clear = true })

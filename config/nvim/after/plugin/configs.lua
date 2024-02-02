@@ -40,9 +40,10 @@ cmp.setup({
     ['<C-u>'] = cmp.mapping.scroll_docs(-4),
     ['<C-d>'] = cmp.mapping.scroll_docs(4),
   },
-  preselect = 'item',
+  -- preselect = 'item',
+  preselect = cmp.PreselectMode.None,
   completion = {
-    completeopt = 'menu,menuone,noinsert'
+    completeopt = 'menu,menuone,noinsert,noselect'
   },
 })
 
@@ -81,6 +82,7 @@ require('copilot').setup({
   panel = { enabled = false },
 })
 
+map('n', 'ct', '<cmd>Copilot toggle<cr>', { buffer = true })
 ---------------------------------------------------------------------
 -- lsp-zero
 ---------------------------------------------------------------------
@@ -112,7 +114,7 @@ lsp.on_attach(function(client, bufnr)
 
   map('n', 'tr', '<cmd>Telescope lsp_references<cr>', { buffer = true })
   map('n', 'ti', '<cmd>Telescope lsp_implementations<cr>', { buffer = true })
-  map('n', 'td', '<cmd>Telescope diagnostics<cr>', { buffer = true })
+  map('n', 'tl', '<cmd>Telescope diagnostics<cr>', { buffer = true })
 
   -- https://github.com/VonHeikemen/lsp-zero.nvim/blob/v2.x/doc/md/lsp.md#always-use-the-active-servers
   -- it'll use all active server with no order guaranteed, so it's best to activate if we only have one server per file
@@ -135,6 +137,19 @@ lspconfig.gopls.setup {
     },
   },
 }
+
+-- don't use intelephense as formatter
+lspconfig.intelephense.setup {
+  settings = {
+    intelephense = {
+      format = {
+        enable = false,
+      },
+    },
+  },
+}
+
+require 'lspconfig'.tsserver.setup {}
 
 lsp_defaults.capabilities = vim.tbl_deep_extend(
   'force',
@@ -193,6 +208,17 @@ vim.g.loaded_netrwPlugin = 1
 require('nvim-tree').setup()
 
 map('n', '<leader>nt', vim.cmd.NvimTreeToggle)
+map('n', '<leader>nf', vim.cmd.NvimTreeFindFile)
+
+-- auto close nvim-tree if it's the last window
+vim.api.nvim_create_autocmd("BufEnter", {
+  nested = true,
+  callback = function()
+    if #vim.api.nvim_list_wins() == 1 and require("nvim-tree.utils").is_nvim_tree_buf() then
+      vim.cmd "quit"
+    end
+  end
+})
 
 ---------------------------------------------------------------------
 -- nvim-ufo
@@ -211,24 +237,123 @@ require('ufo').setup()
 ---------------------------------------------------------------------
 -- telescope
 ---------------------------------------------------------------------
+local telescope = require('telescope')
+local actions = require('telescope.actions')
+local action_layout = require("telescope.actions.layout")
 local builtin = require('telescope.builtin')
--- local actions = require('telescope.actions')
-map('n', '<leader>f', builtin.find_files)
-map('n', '<leader>fg', builtin.git_files)
-map('n', '<leader>fc', builtin.git_bcommits)
-map('n', '<leader>a', builtin.live_grep)
-map('n', '<leader>aw', builtin.grep_string)
-map('n', '<leader>r', builtin.command_history)
-map('n', ';', function()
-  builtin.buffers({
-    sort_lastused = true,
+local extensions = require('telescope').extensions
+local lga_actions = require('telescope-live-grep-args.actions')
+local lga_shortcuts = require('telescope-live-grep-args.shortcuts')
+
+-- filter grep results with telescope file browser
+-- https://github.com/nvim-telescope/telescope.nvim/issues/2201#issuecomment-1284691502
+local ts_select_dir_for_grep = function(prompt_bufnr)
+  local action_state = require("telescope.actions.state")
+  local fb = require("telescope").extensions.file_browser
+  -- change the below line to liver_grep_args when used
+  -- local live_grep = require("telescope.builtin").live_grep
+  local live_grep = require("telescope").extensions.live_grep_args.live_grep_args
+  -- local live_grep = require("telescope").extension.live_grep_args.live_grep
+  local current_line = action_state.get_current_line()
+
+  fb.file_browser({
+    files = false,
+    depth = false,
+    attach_mappings = function(prompt_bufnr)
+      require("telescope.actions").select_default:replace(function()
+        local entry_path = action_state.get_selected_entry().Path
+        local dir = entry_path:is_dir() and entry_path or entry_path:parent()
+        local relative = dir:make_relative(vim.fn.getcwd())
+        local absolute = dir:absolute()
+
+        live_grep({
+          results_title = relative .. "/",
+          cwd = absolute,
+          default_text = current_line,
+        })
+      end)
+
+      return true
+    end,
+  })
+end
+
+telescope.setup({
+  defaults = {
+    -- wrap_results = true,
     mappings = {
       n = {
-        ['d'] = 'delete_buffer',
+        ["<M-p>"] = action_layout.toggle_preview
+      },
+      i = {
+        ["<M-d>"] = actions.delete_buffer + actions.move_to_top,
+        ["<M-p>"] = action_layout.toggle_preview,
+        ["<C-s>"] = actions.cycle_previewers_next,
+        ["<C-a>"] = actions.cycle_previewers_prev,
       },
     },
+    -- to trim the indentation at the beginning of presented line in the result window
+    vimgrep_arguments = {
+      "rg",
+      "--color=never",
+      "--no-heading",
+      "--with-filename",
+      "--line-number",
+      "--column",
+      "--smart-case",
+      "--trim" -- add this value
+    }
+  },
+  extensions = {
+    fzf = {
+      fuzzy = true,
+      case_mode = 'smart_case',
+    },
+    live_grep_args = {
+      mappings = {
+        i = {
+          ["<C-f>"] = ts_select_dir_for_grep,
+          ["<C-k>"] = lga_actions.quote_prompt(),
+          ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
+          ["<C-l>"] = lga_actions.quote_prompt({ postfix = " --iglob '!*test*'" }),
+        },
+        n = {
+          ["<C-f>"] = ts_select_dir_for_grep,
+          ["<C-l>"] = lga_actions.quote_prompt({ postfix = " --g '!*test*'" }),
+        },
+      }
+    }
+  },
+})
+
+-- get fzf to load and working with telescope
+telescope.load_extension('fzf')
+-- get ui-select loaded and working with telescope
+telescope.load_extension('ui-select')
+telescope.load_extension("file_browser")
+telescope.load_extension("live_grep_args")
+
+map('n', ';', function()
+  builtin.buffers({
+    sort_mru = true,
   })
 end)
+-- map('n', '<leader>a', builtin.live_grep)
+-- map('n', '<leader>a', '<cmd>lua require("telescope").extensions.live_grep_args.live_grep_args()<cr>', { buffer = true })
+map('n', '<leader>a', extensions.live_grep_args.live_grep_args)
+-- map('n', '<leader>aw', builtin.grep_string)
+map('n', '<leader>aw', function()
+  lga_shortcuts.grep_word_under_cursor({ quote = false, postfix = "" })
+end)
+map('n', '<leader>av', lga_shortcuts.grep_visual_selection)
+map('n', '<leader>f', builtin.find_files)
+map('n', '<leader>fc', builtin.git_bcommits)
+map('n', '<leader>fg', builtin.git_files)
+map('n', '<leader>fm', builtin.marks)
+map('n', '<leader>r', builtin.resume)
+map('n', '<leader>rr', builtin.command_history)
+map('n', '<leader>tn', builtin.builtin)
+map('n', '<leader>fb', '<cmd>Telescope file_browser<cr>', { buffer = true })
 
 ---------------------------------------------------------------------
 -- vim-fugitive
