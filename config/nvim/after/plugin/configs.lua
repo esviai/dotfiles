@@ -83,6 +83,7 @@ require('copilot').setup({
 })
 
 map('n', 'ct', '<cmd>Copilot toggle<cr>', { buffer = true })
+
 ---------------------------------------------------------------------
 -- lsp-zero
 ---------------------------------------------------------------------
@@ -118,7 +119,7 @@ lsp.on_attach(function(client, bufnr)
 
   -- https://github.com/VonHeikemen/lsp-zero.nvim/blob/v2.x/doc/md/lsp.md#always-use-the-active-servers
   -- it'll use all active server with no order guaranteed, so it's best to activate if we only have one server per file
-  -- it's a synchronous funtion
+  -- it's a synchronous function
   lsp.buffer_autoformat()
 end)
 
@@ -129,33 +130,73 @@ local lsp_defaults = lspconfig.util.default_config
 lspconfig.lua_ls.setup(lsp.nvim_lua_ls())
 
 -- automatically add unimported package
-lspconfig.gopls.setup {
-  settings = {
-    gopls = {
-      -- will fill the function with parameter placeholders
-      usePlaceholders = true,
-    },
-  },
-}
+-- lspconfig.gopls.setup {
+--   settings = {
+--     gopls = {
+--       -- will fill the function with parameter placeholders
+--       usePlaceholders = true,
+--     },
+--   },
+-- }
 
 -- don't use intelephense as formatter
-lspconfig.intelephense.setup {
-  settings = {
-    intelephense = {
-      format = {
-        enable = false,
-      },
-    },
+-- lspconfig.intelephense.setup {
+--   settings = {
+--     intelephense = {
+--       format = {
+--         enable = false,
+--       },
+--     },
+--   },
+-- }
+
+-- lsp_defaults.capabilities = vim.tbl_deep_extend(
+--   'force',
+--   lsp_defaults.capabilities,
+--   require('cmp_nvim_lsp').default_capabilities()
+-- )
+
+require('mason').setup({})
+require('mason-lspconfig').setup({
+  -- Replace the language servers listed here
+  -- with the ones you want to install
+  ensure_installed = {},
+  handlers = {
+    lsp.default_setup,
+    gopls = function()
+      -- automatically add unimported package
+      lspconfig.gopls.setup {
+        settings = {
+          gopls = {
+            -- will fill the function with parameter placeholders
+            usePlaceholders = true,
+          },
+        },
+      }
+    end,
+    intelephense = function()
+      -- don't use intelephense as formatter
+      -- for the future, another try if it doesn't work: https://github.com/VonHeikemen/lsp-zero.nvim/blob/e14aa165d820fc8943704c273e27fbce4a96b29f/doc/md/lsp.md#disable-formatting-capabilities
+      lspconfig.intelephense.setup {
+        -- on_init = function(client)
+        --   client.server_capabilities.documentFormattingProvider = false
+        --   client.server_capabilities.documentFormattingRangeProvider = false
+        -- end,
+        settings = {
+          intelephense = {
+            format = {
+              enable = false,
+            },
+          },
+        },
+      }
+    end,
+    lua_ls = function()
+      local lua_opts = lsp.nvim_lua_ls()
+      lspconfig.lua_ls.setup(lua_opts)
+    end,
   },
-}
-
-require 'lspconfig'.tsserver.setup {}
-
-lsp_defaults.capabilities = vim.tbl_deep_extend(
-  'force',
-  lsp_defaults.capabilities,
-  require('cmp_nvim_lsp').default_capabilities()
-)
+})
 
 -- disable log because it gets too big
 vim.lsp.set_log_level('off')
@@ -164,6 +205,36 @@ lsp.setup()
 
 vim.diagnostic.config({
   virtual_text = true
+})
+
+---------------------------------------------------------------------
+-- conform
+---------------------------------------------------------------------
+require("conform").setup({
+  formatters_by_ft = {
+    php = { "php" },
+  },
+  -- format_on_save = {
+  --   lsp_fallback = true,
+  --   async = false,
+  --   timeout_ms = 5000,
+  -- },
+  -- format_after_save = {
+  --   lsp_fallback = true,
+  -- },
+  notify_on_error = true,
+  formatters = {
+    php = {
+      command = "php-cs-fixer",
+      args = {
+        "fix",
+        "$FILENAME",
+        "--config=/Users/dev/codes/kouzoh/mercari-api-jp-old/.php-cs-fixer.php",
+        "--allow-risky=yes", -- if you have risky stuff in config, if not you dont need it.
+      },
+      stdin = false,
+    },
+  },
 })
 
 ---------------------------------------------------------------------
@@ -253,7 +324,6 @@ local ts_select_dir_for_grep = function(prompt_bufnr)
   -- change the below line to liver_grep_args when used
   -- local live_grep = require("telescope.builtin").live_grep
   local live_grep = require("telescope").extensions.live_grep_args.live_grep_args
-  -- local live_grep = require("telescope").extension.live_grep_args.live_grep
   local current_line = action_state.get_current_line()
 
   fb.file_browser({
@@ -286,7 +356,6 @@ telescope.setup({
         ["<M-p>"] = action_layout.toggle_preview
       },
       i = {
-        ["<M-d>"] = actions.delete_buffer + actions.move_to_top,
         ["<M-p>"] = action_layout.toggle_preview,
         ["<C-s>"] = actions.cycle_previewers_next,
         ["<C-a>"] = actions.cycle_previewers_prev,
@@ -303,6 +372,15 @@ telescope.setup({
       "--smart-case",
       "--trim" -- add this value
     }
+  },
+  pickers = {
+    buffers = {
+      mappings = {
+        i = {
+          ["<M-d>"] = actions.delete_buffer + actions.move_to_top,
+        },
+      },
+    },
   },
   extensions = {
     fzf = {
@@ -338,14 +416,13 @@ map('n', ';', function()
     sort_mru = true,
   })
 end)
--- map('n', '<leader>a', builtin.live_grep)
--- map('n', '<leader>a', '<cmd>lua require("telescope").extensions.live_grep_args.live_grep_args()<cr>', { buffer = true })
 map('n', '<leader>a', extensions.live_grep_args.live_grep_args)
--- map('n', '<leader>aw', builtin.grep_string)
 map('n', '<leader>aw', function()
   lga_shortcuts.grep_word_under_cursor({ quote = false, postfix = "" })
 end)
-map('n', '<leader>av', lga_shortcuts.grep_visual_selection)
+map('n', '<leader>av', function()
+  lga_shortcuts.grep_visual_selection({ quote = false, postfix = "" })
+end)
 map('n', '<leader>f', builtin.find_files)
 map('n', '<leader>fc', builtin.git_bcommits)
 map('n', '<leader>fg', builtin.git_files)

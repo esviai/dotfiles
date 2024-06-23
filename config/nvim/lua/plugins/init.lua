@@ -18,10 +18,6 @@ return {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
     build = ":Copilot auth",
-    opts = {
-      suggestion = { enabled = false },
-      panel = { enabled = false },
-    },
   },
   {
     "zbirenbaum/copilot-cmp",
@@ -50,7 +46,6 @@ return {
   {
     'hrsh7th/nvim-cmp',
     dependencies = {
-      'neovim/nvim-lspconfig',
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-nvim-lua',
       'hrsh7th/cmp-buffer',
@@ -122,6 +117,17 @@ return {
     branch = 'v3.x',
     lazy = true,
     config = false,
+    dependencies = {
+      'neovim/nvim-lspconfig',
+      'williamboman/mason.nvim',
+      "williamboman/mason-lspconfig.nvim"
+    }
+  },
+  {
+    'stevearc/conform.nvim',
+    lazy = true,
+    event = { 'BufReadPre', 'BufNewFile' },
+    opts = {},
   },
   'wakatime/vim-wakatime',
   {
@@ -135,5 +141,8 @@ return {
         ignored_next_char = "[%w%.]",
       }
     end
-  }
+  },
+  'mfussenegger/nvim-dap',
+  'theHamsta/nvim-dap-virtual-text',
+  'rcarriga/nvim-dap-ui',
 }
